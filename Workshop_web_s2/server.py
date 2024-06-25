@@ -37,3 +37,9 @@ def game():
 @app.route("/category/add")
 def signup():
     return render_template('signup.html')
+@app.route("/category/edit/<id>")
+def signup():
+    return render_template('signup.html')
+@app.route("/category/delete/<id>")
+def signup():
+    return render_template('signup.html')
