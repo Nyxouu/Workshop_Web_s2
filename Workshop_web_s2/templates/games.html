@@ -1,6 +1,19 @@
-{% for game in games %}
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/css/menu.css">
+      <title>Speed Score</title>
+  </head>
+  <body>
+    {% include "menu.html" %}
+    {% for game in games %}
 
     <p> {{game.name}} </p>
     <p> {{game.description}} </p>
 
-{% endfor %}
+    {% endfor %}
+    <h1>HOME</h1>
+  </body>
+</html>
