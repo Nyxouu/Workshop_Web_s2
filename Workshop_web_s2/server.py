@@ -18,18 +18,22 @@ def games():
 def game():
     return render_template('game.html', game=id)
 
-@app.route("/account")
-def account():
-    return render_template('account.html')
+# @app.route("/account")
+# def account():
+#     return render_template('account.html')
 
-@app.route("/favorites")
-def favorites():
-    return render_template('favorites.html')
+# @app.route("/favorites")
+# def favorites():
+#     return render_template('favorites.html')
 
-@app.route("/signin")
-def signin():
-    return render_template('signin.html')
+# @app.route("/signin")
+# def signin():
+#     return render_template('signin.html')
 
-@app.route("/signup")
+# @app.route("/signup")
+# def signup():
+#     return render_template('signup.html')
+
+@app.route("/category/add")
 def signup():
     return render_template('signup.html')
