@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Serveur absences</title>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/css/menu.css">
+      <title>Speed Score</title>
   </head>
   <body>
-    <h1>Liste de jeu</h1>
-    <table>
-        {% for onegame in games %}
-            <tr>                               
-                <td>{{onegame.name}}</td>
-                <td>{{onegame.price}}</td>
-                <td>{{onegame.description}}</td>
-            </tr>
-        {% endfor %}
-    </table>
-    <a href="/saisie">Retour au formulaire</a>
+    {% include "menu.html" %}
+    <h1>HOME</h1>
   </body>
 </html>
+  
 
-
-<!-- tr : lignes  &  td : colonnes -->
