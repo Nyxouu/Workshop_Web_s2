@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 from flask import Flask,request,render_template
 from flask_cors import CORS
+import model
 
 app = Flask(__name__)
 CORS(app)
-
 
 @app.route("/")
 def index():
@@ -12,9 +11,10 @@ def index():
 
 @app.route("/games")
 def games():
-    return render_template('games.html')
+    data = model.get_all_games()
+    return render_template('games.html', games=data)
    
-@app.route("/games/<id>")
+@app.route("/games/<id>") 
 def game():
     return render_template('game.html', game=id)
 
