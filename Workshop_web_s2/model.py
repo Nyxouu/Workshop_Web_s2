@@ -8,8 +8,9 @@ def get_all_games() :
         password="",
         database="workshop-web-s2"
     )
+    SQL = "SELECT * FROM game"
     bd_cursor = speedscore_db.cursor()
-    bd_cursor.execute("SELECT * FROM game")
+    bd_cursor.execute(SQL)
     data = bd_cursor.fetchall()
     print(data)
     return data
