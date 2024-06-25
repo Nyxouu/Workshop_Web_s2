@@ -17,18 +17,74 @@ def connect():
     )
     return speedscore_db
 
-
 def get_all_games() :
     connection = connect()
+
     SQL = "SELECT * FROM game"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL)
 
     data = bd_cursor.fetchall() #values
-    fields_list = bd_cursor.description   # keys
-
+    fields_list = bd_cursor.description  #keys
     formated_games = format_query(fields_list, data)
 
     bd_cursor.close()
     connection.close()
     return formated_games
+
+def get_game(id) :
+    connection = connect()
+    SQL = "SELECT * FROM game where id_game = %s"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (id,))
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description  #keys
+    formated_game = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return formated_game
+
+def add_new_game(name, description, released_date, image) :
+    try:
+        connection = connect()
+        SQL = "insert into game (name, description, released_date, image) values (%s, %s, %s, %s)"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (name, description, released_date, image))
+        connection.commit()
+    except Exception as e:
+        print("An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
+
+def update_game(id, name, description, released_date, image) :
+    try:
+        connection = connect()
+        SQL = "update game set name = %s, description = %s, released_date = %s, image = %s where id_game = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (name, description, released_date, image, id))
+        connection.commit()
+    except Exception as e:
+        print("An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
+
+def delete_one_game(id) :
+    try:
+        connection = connect()
+        SQL = "delete from game where id_game = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
+        connection.commit()
+    except Exception as e:
+        print("An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
