@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Serveur absences</title>
+  </head>
+  <body>
+    <h1>Formulaire de jeu</h1>
+    <form action="ajout" method="POST">
+      <div>
+        <label for="name">Nom du jeu :</label>
+        <input name="name" type="text" required="">
+      </div>
+      <div>
+        <label for="price">Prix du jeu :</label>
+        <input name="price" type="number" required="">
+      </div>
+      <div>
+        <label for="description">Description du jeu :</label>
+        <input name="description" type="text" required="">
+      </div>
+      <input type="submit" value="Ajouter">
+    </form>
+    <a href="/liste">Retour a la liste</a>
+  </body>
+</html>
