@@ -1,8 +1,11 @@
-from flask import Flask,request,render_template,redirect
+from flask import Flask,request,render_template,redirect, session
 from flask_cors import CORS
 import model
+import os
+
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'default_secret_key')
 CORS(app)
 
 @app.route("/")
@@ -77,9 +80,25 @@ def signin():
         password = model.hash_psw(request.form['psw'])
         message = model.check_user_existence(email, password)
         if message == "ok" :
+            session['id_user'] = model.get_user_from_email(email)[0]['id_user']
+            session['email'] = email
+            session['username'] = model.get_user_from_email(email)[0]['username']
+            session['profile_picture'] = model.get_user_from_email(email)[0]['profile_picture']
+            session['nationality'] = model.get_user_from_email(email)[0]['nationality']
+            session['admin'] = model.get_user_from_email(email)[0]['admin']
             return render_template('home.html')
         return render_template('user/signin.html', data=message)
     return render_template('user/signin.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('id_user', None)
+    session.pop('email', None)
+    session.pop('username', None)
+    session.pop('profile_picture', None)
+    session.pop('nationality', None)
+    session.pop('admin', None)
+    return render_template('home.html')
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Games
