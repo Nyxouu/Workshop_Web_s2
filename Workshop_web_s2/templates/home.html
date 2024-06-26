@@ -9,6 +9,12 @@
   <body>
     {% include "menu.html" %}
     <h1>HOME</h1>
+
+    {% for ctg in infos_categories %}
+        <p>{{ctg.label}} : {{ctg.nb_of_games}} {% if ctg.nb_of_games <= 1 %} jeu {% else %} jeux {% endif %} - {{ctg.nb_of_sessions}} {% if ctg.nb_of_sessions <= 1 %} session {% else %} sessions {% endif %} </p>
+    {% endfor %}
+
+
   </body>
 </html>
   

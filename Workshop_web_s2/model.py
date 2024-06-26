@@ -322,3 +322,48 @@ def delete_category_from_id(id):
             bd_cursor.close()
         if connection:
             connection.close()
+
+def get_number_of_games_per_category() : 
+    connection = connect()
+    SQL = "SELECT category.label, COALESCE(COUNT(game_category._id_game), 0) as nb_of_games FROM category LEFT JOIN game_category ON category.id_category = game_category._id_category GROUP BY category.id_category, category.label order by category.label asc;"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL)
+
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description #keys
+    formated_category_games = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return formated_category_games
+
+def get_number_of_sessions_per_category() :
+    connection = connect()
+    SQL = "SELECT category.label, COALESCE(COUNT(session.id_session), 0) as nb_of_sessions FROM category LEFT JOIN session ON category.id_category = session._id_category GROUP BY category.id_category, category.label order by category.label asc;"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL)
+
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description #keys
+    formated_session_category = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return formated_session_category
+
+def combine_infos_categories(games_per_category, sessions_per_category):
+    combined_dict = {}
+
+    for game in games_per_category:
+        label = game['label']
+        nb_of_games = game['nb_of_games']
+        combined_dict[label] = {'label': label, 'nb_of_games': nb_of_games, 'nb_of_sessions': 0}
+
+    for session in sessions_per_category:
+        label = session['label']
+        nb_of_sessions = session['nb_of_sessions']
+        if label in combined_dict:
+            combined_dict[label]['nb_of_sessions'] = nb_of_sessions
+        else:
+            combined_dict[label] = {'label': label, 'nb_of_games': 0, 'nb_of_sessions': nb_of_sessions}
+
+    combined_list = list(combined_dict.values())
+    return combined_list

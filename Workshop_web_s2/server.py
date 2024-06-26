@@ -7,7 +7,10 @@ CORS(app)
 
 @app.route("/")
 def index():
-    return render_template('home.html')
+    games_per_category = model.get_number_of_games_per_category()
+    sessions_per_category = model.get_number_of_sessions_per_category()
+    infos_categories = model.combine_infos_categories(games_per_category, sessions_per_category)
+    return render_template('home.html', infos_categories=infos_categories)
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Users
