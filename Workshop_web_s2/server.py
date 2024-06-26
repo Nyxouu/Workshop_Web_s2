@@ -149,6 +149,11 @@ def delete_game(id):
 # ---------------------------- Category
 # ---------------------------------------------------------------------------
 
+@app.route("/get_categories/<idGame>", methods=['GET', 'POST'])
+def get_categories(idGame):
+    data = model.get_categories_from_game_id(idGame)
+    return data
+
 @app.route("/category/add", methods=['GET', 'POST'])
 def add_category():
     if request.method == 'POST':

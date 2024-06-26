@@ -270,6 +270,19 @@ def get_all_category():
     connection.close()
     return formated_category
 
+def get_categories_from_game_id(idGame):
+    connection = connect()
+    SQL = "SELECT id_category,label FROM category JOIN game_category ON category.id_category=game_category._id_category WHERE game_category._id_game = %s"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (idGame,))
+
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description   # keys
+    formated_category = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return formated_category
+
 def get_category_from_id(id):
     connection = connect()
     SQL = "SELECT * FROM category WHERE id_category = %s"

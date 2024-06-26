@@ -6,6 +6,44 @@
         <link rel="stylesheet" href="/static/css/menu.css">
         <link rel="stylesheet" href="/static/css/forms.css">
         <title>Speed Score</title>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                let gameSelect = document.getElementById('game-select')
+
+                function updateCategories() {
+                    let selectedGame = parseInt(gameSelect.value)
+                    // console.log('Selected game ID:', selectedGame);
+
+                    // Envoyer une requête AJAX pour obtenir les catégories associées
+                    fetch('/get_categories/'+selectedGame)
+                        .then(response => response.json())
+                        .then(categories => {
+                            console.log(categories)
+                            updateCategoryList(categories)
+                        })
+                        .catch(error => {
+                            console.error('Error fetching categories:', error)
+                        });
+                }
+                function updateCategoryList(categories) {
+                    let categoriesList = document.getElementById('category-select')
+                    categoriesList.innerHTML = '';
+                    
+                    categories.forEach(category => {
+                        let newOption = document.createElement('option')
+                        newOption.value = category.id_category
+                        newOption.textContent = category.label
+                        
+                        categoriesList.appendChild(newOption)
+                    });
+                }
+                // A l'initialisation
+                updateCategories();
+                // Au changement
+                gameSelect.addEventListener('change', updateCategories);
+            });
+        </script>
     </head>
     <body>
         {% include "menu.html" %}
@@ -14,8 +52,13 @@
                 <label for="game">Jeu :</label>
                 <select name="game" id="game-select" required="required">
                     {% for game in games %}
-                    <option value="{{game.id}}">{{game.name}}</option>
+                    <option value="{{game.id_game}}">{{game.name}}</option>
                     {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="category">Catégorie :</label>
+                <select name="category" id="category-select" required="required">
                 </select>
             </div>
             <div>
