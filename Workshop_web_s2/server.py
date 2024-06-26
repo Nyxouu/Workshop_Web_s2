@@ -1,4 +1,4 @@
-from flask import Flask,request,render_template
+from flask import Flask,request,render_template,redirect
 from flask_cors import CORS
 import model
 
@@ -64,3 +64,90 @@ def signup():
 
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/users")
+def users():
+    data = model.get_all_users()
+    return render_template('users.html', users=data)
+   
+@app.route("/users/<id>", methods=['GET']) 
+def user(id):
+    data = model.get_user(int(id))
+    return render_template('profile.html', user=data)
+
+@app.route("/users/edit/<id>", methods=['GET', 'POST'])
+def edit_user(id):
+    if request.method == 'POST' :
+        username = request.form['username']
+        email = request.form['email']
+        nationality = request.form['nationality']
+        password = request.form['password']
+        if password :
+            hashed_password = model.hash_psw(password)
+        else :
+            hashed_password = None
+        model.update_user(int(id), email, username, hashed_password, nationality)
+    data = model.get_user(int(id))
+    return render_template('edit_user.html', user=data)
+
+@app.route("/users/delete/<id>", methods=['GET', 'POST'])
+def delete_user(id):
+    model.delete_one_user(int(id))
+    return redirect("/users", code=302)

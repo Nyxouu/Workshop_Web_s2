@@ -49,3 +49,134 @@ def add_user(email, username, password, nationality) :
     bd_cursor.close()
     connection.close()
     return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def get_all_users() :
+    connection = connect()
+
+    SQL = "SELECT * FROM user"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL)
+
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description  #keys
+    formated_users = format_query(fields_list, data)
+
+    bd_cursor.close()
+    connection.close()
+    return formated_users
+
+def get_user(id) :
+    connection = connect()
+    SQL = "SELECT * FROM user where id_user = %s"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (id,))
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description  #keys
+    formated_user = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return formated_user
+
+def update_user(id, email, username, password, nationality) :
+    try:
+        connection = connect()
+        if password != None :
+            SQL = "update user set email = %s, username = %s, password = %s, nationality = %s where id_user = %s"
+            bd_cursor = connection.cursor()
+            bd_cursor.execute(SQL, (email, username, password, nationality, id))
+        else : 
+            SQL = "update user set email = %s, username = %s, nationality = %s where id_user = %s"
+            bd_cursor = connection.cursor()
+            bd_cursor.execute(SQL, (email, username, nationality, id))
+        connection.commit()
+    except Exception as e:
+        print("An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
+
+def delete_one_user(id) :
+    try:
+        connection = connect()
+        SQL = "delete from user where id_user = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
+        connection.commit()
+    except Exception as e:
+        print("An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
