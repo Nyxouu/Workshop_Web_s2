@@ -26,6 +26,20 @@
             <label for="image">Image du jeu :</label>
             <input id="image" type="text" name="image" {% if game and game[0] %} value="{{game[0].image}}" {% endif %}>
         </div>
+        <div>
+            <!-- <fieldset>
+                <legend>Categories:</legend>
+                <div>
+                  <input type="checkbox" id="scales" name="scales" checked />
+                  <label for="scales">Scales</label>
+                </div>
+              </fieldset> -->
+            <select name="category" multiple size="6">
+                <!-- {% for category in all_ctgs %}
+                    <option value="{{category.id}}">{{category.label}}</option>
+                {% endfor %} -->
+            </select>
+        </div>
         <input type="submit" value="Go go">
     </form>
 

@@ -18,6 +18,38 @@ def connect():
     return speedscore_db
 
 # ---------------------------------------------------------------------------
+# ---------------------------- Game_Category
+# ---------------------------------------------------------------------------
+def add_liaison_gc(id_game, id_category) :
+    try:
+        connection = connect()
+        SQL = "insert into game_category values (%s, %s)"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id_game, id_category))
+        connection.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
+def delete_liaison_gc(id_game, id_category) :
+    try:
+        connection = connect()
+        SQL = "delete from game_category where _id_game = %s and _id_category = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id_game, id_category))
+        connection.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
+
+# ---------------------------------------------------------------------------
 # ---------------------------- Games 
 # ---------------------------------------------------------------------------
 def get_all_games() :
@@ -95,6 +127,18 @@ def delete_one_game(id) :
 # ---------------------------------------------------------------------------
 # ---------------------------- Category
 # ---------------------------------------------------------------------------
+def get_all_category():
+    connection = connect()
+    SQL = "SELECT (id_category,label) FROM category"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (id,))
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description   # keys
+    formated_category = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return formated_category
+
 def get_category_from_id(id):
     connection = connect()
     SQL = "SELECT * FROM category WHERE id_category = %s"
