@@ -25,10 +25,10 @@ def account():
 @app.route("/signup", methods=['GET','POST'])
 def signup():
     if request.method == 'POST' :
-        username = request.form['username']
-        email = request.form['email']
+        username = request.form['username'].strip()
+        email = request.form['email'].strip()
         password = model.hash_psw(request.form['password'])
-        nationnality = request.form['nationality']
+        nationnality = request.form['nationality'].strip()
         user_add = model.add_user(email, username, password, nationnality)
         if user_add==True :
             return render_template('signin.html')
@@ -38,20 +38,14 @@ def signup():
 @app.route("/signin", methods=['GET','POST'])
 def signin():
     if request.method == 'POST' : 
-        username = request.form['user_name']
+        email = request.form['email'].strip()
         password = model.hash_psw(request.form['psw'])
-        message = model.check_user_existence(username, password)
+        message = model.check_user_existence(email, password)
         if message == "ok" :
             return render_template('home.html')
         return render_template('signin.html', data=message)
     return render_template('signin.html')
 
-# @app.route("/ggg", methods=['GET','POST']) 
-# def test():
-#     username = request.form['user_name']
-#     password = model.hash_psw(request.form['psw'])
-#     message = model.check_user_existence(username, password)
-#     return render_template('signin.html', data=message)
 
 # @app.route("/account")
 # def account():
@@ -92,9 +86,9 @@ def user(id):
 @app.route("/users/edit/<id>", methods=['GET', 'POST'])
 def edit_user(id):
     if request.method == 'POST' :
-        username = request.form['username']
-        email = request.form['email']
-        nationality = request.form['nationality']
+        username = request.form['username'].strip()
+        email = request.form['email'].strip()
+        nationality = request.form['nationality'].strip()
         password = request.form['password']
         if password :
             hashed_password = model.hash_psw(password)

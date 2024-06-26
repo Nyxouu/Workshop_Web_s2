@@ -49,11 +49,11 @@ def add_user(email, username, password, nationality) :
 
 
 
-def check_user_existence(username, password) :
+def check_user_existence(email, password) :
     connection = connect()
-    SQL = "SELECT * FROM user WHERE username=%s"
+    SQL = "SELECT * FROM user WHERE email=%s"
     bd_cursor = connection.cursor()
-    bd_cursor.execute(SQL, (username,))
+    bd_cursor.execute(SQL, (email,))
 
     data = bd_cursor.fetchall() #values
     fields_list = bd_cursor.description   # keys
