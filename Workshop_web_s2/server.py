@@ -56,8 +56,9 @@ def signin():
 @app.route("/ggg", methods=['GET','POST']) 
 def test():
     username = request.form['user_name']
-    data = model.get_test(username)
-    return data
+    password = model.hash_psw(request.form['psw'])
+    message = model.get_test(username, password)
+    return render_template('signin.html', data=message)
 
 # @app.route("/account")
 # def account():

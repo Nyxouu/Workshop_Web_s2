@@ -74,21 +74,33 @@ def check_user_existence ( username, password ) :
     #     return(0)
 
 
-def get_test(username) :
+def get_test(username, password) :
     connection = connect()
     SQL = "SELECT * FROM user WHERE username=%s"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL, (username,))
 
     data = bd_cursor.fetchall() #values
-    print(data)
     fields_list = bd_cursor.description   # keys
-    print(fields_list)
     formated_category = format_query(fields_list, data)
-    print(formated_category)
+    if len(data)==0 :
+        message = "le nom est incorect"
+        return message
+    if password == data[0][3] :
+        message = "vous etes connecte"
+        return message
+    if password != data[0][3] :
+        message = "le mot de passe est incorrect"
+        return message
     bd_cursor.close()
     connection.close()
     return data
+
+
+
+
+
+
 
 def get_all_users() :
     connection = connect()
