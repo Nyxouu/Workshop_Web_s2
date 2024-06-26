@@ -17,6 +17,9 @@ def connect():
     )
     return speedscore_db
 
+# ---------------------------------------------------------------------------
+# ---------------------------- Games 
+# ---------------------------------------------------------------------------
 def get_all_games() :
     connection = connect()
 
@@ -31,7 +34,6 @@ def get_all_games() :
     bd_cursor.close()
     connection.close()
     return formated_games
-
 
 def get_game(id) :
     connection = connect()
@@ -60,22 +62,6 @@ def add_new_game(name, description, released_date, image) :
         if connection:
             connection.close()
 
-def add_new_category(label,description):
-    try:
-        connection = connect()
-        SQL = "INSERT INTO category (label, description) VALUES (%s, %s)"
-        bd_cursor = connection.cursor()
-        bd_cursor.execute(SQL, (label, description))
-        connection.commit()
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
-        if bd_cursor:
-            bd_cursor.close()
-        if connection:
-            connection.close()
-
-
 def update_game(id, name, description, released_date, image) :
     try:
         connection = connect()
@@ -90,7 +76,25 @@ def update_game(id, name, description, released_date, image) :
             bd_cursor.close()
         if connection:
             connection.close()
-            
+
+def delete_one_game(id) :
+    try:
+        connection = connect()
+        SQL = "delete from game where id_game = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
+        connection.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
+
+# ---------------------------------------------------------------------------
+# ---------------------------- Category
+# ---------------------------------------------------------------------------
 def get_category_from_id(id):
     connection = connect()
     SQL = "SELECT * FROM category WHERE id_category = %s"
@@ -103,6 +107,21 @@ def get_category_from_id(id):
     bd_cursor.close()
     connection.close()
     return formated_category
+
+def add_new_category(label,description):
+    try:
+        connection = connect()
+        SQL = "INSERT INTO category (label, description) VALUES (%s, %s)"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (label, description))
+        connection.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
 
 def update_category(id,label,description):
     try:
@@ -119,23 +138,6 @@ def update_category(id,label,description):
         if connection:
             connection.close()
 
-            
-def delete_one_game(id) :
-    try:
-        connection = connect()
-        SQL = "delete from game where id_game = %s"
-        bd_cursor = connection.cursor()
-        bd_cursor.execute(SQL, (id,))
-        connection.commit()
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
-        if bd_cursor:
-            bd_cursor.close()
-        if connection:
-            connection.close()
-            
-            
 def delete_category_from_id(id):
     try:
         connection = connect()

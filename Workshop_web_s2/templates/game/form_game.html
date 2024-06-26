@@ -12,19 +12,19 @@
     <form action="" method="POST">
         <div>
             <label for="name">Nom du jeu</label>
-            <input id="name" type="text" name="name" {% if ctg and ctg[0] %} value="{{game[0].name}}" {% endif %} required>
+            <input id="name" type="text" name="name" {% if game and game[0] %} value="{{game[0].name}}" {% endif %} required>
         </div>
         <div>
             <label for="released_date">Date de sortie :</label>
-            <input id="released_date" type="date" name="released_date" {% if ctg and ctg[0] %} value="{{game[0].released_date}}" {% endif %} required>
+            <input id="released_date" type="date" name="released_date" {% if game and game[0] %} value="{{game[0].released_date}}" {% endif %} required>
         </div>
         <div>
             <label for="description">Description :</label>
-            <textarea id="description" type="text" name="description" required>{% if ctg and ctg[0] %} {{game[0].description}} {% endif %}</textarea>
+            <textarea id="description" type="text" name="description" required>{% if game and game[0] %} {{game[0].description}} {% endif %}</textarea>
         </div>
         <div>
             <label for="image">Image du jeu :</label>
-            <input id="image" type="text" name="image" {% if ctg and ctg[0] %} value="{{game[0].image}}" {% endif %}>
+            <input id="image" type="text" name="image" {% if game and game[0] %} value="{{game[0].image}}" {% endif %}>
         </div>
         <input type="submit" value="Go go">
     </form>

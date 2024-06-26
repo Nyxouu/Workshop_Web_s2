@@ -25,6 +25,9 @@ def index():
 # def signup():
 #     return render_template('signup.html')
 
+# ---------------------------------------------------------------------------
+# ---------------------------- Games
+# ---------------------------------------------------------------------------
 
 @app.route("/games")
 def games():
@@ -48,14 +51,14 @@ def add_game():
 
 @app.route("/games/edit/<id>", methods=['GET', 'POST'])
 def edit_game(id):
+    data = model.get_game(int(id))
     if request.method == 'POST' :
         name = request.form['name']
         description = request.form['description']
         released_date = request.form['released_date']
         image = request.form['image']
         model.update_game(int(id), name, description, released_date, image)
-        # data = model.get_game(int(id))
-    data = model.get_game(int(id))
+        data = model.get_game(int(id))
     return render_template('game/form_game.html', game=data)
 
 @app.route("/games/delete/<id>", methods=['GET', 'POST'])
@@ -63,6 +66,9 @@ def delete_game(id):
     model.delete_one_game(int(id))
     return redirect("/games", code=302)
 
+# ---------------------------------------------------------------------------
+# ---------------------------- Category
+# ---------------------------------------------------------------------------
 
 @app.route("/category/add", methods=['GET', 'POST'])
 def add_category():
