@@ -34,10 +34,14 @@
                   <label for="scales">Scales</label>
                 </div>
               </fieldset> -->
-            <select name="category" multiple size="6">
-                <!-- {% for category in all_ctgs %}
-                    <option value="{{category.id}}">{{category.label}}</option>
-                {% endfor %} -->
+              <select name="category[]" multiple size="6">
+                {% for category in all_ctgs %}
+                    <option 
+                    value="{{ category.id_category }}"
+                    {% if category.id_category in game_ctgs %} selected {% endif %}>
+                        {{ category.label }}
+                    </option>
+                {% endfor %}
             </select>
         </div>
         <input type="submit" value="Go go">

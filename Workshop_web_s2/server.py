@@ -56,10 +56,14 @@ def add_game():
         description = request.form['description']
         released_date = request.form['released_date']
         image = request.form['image']
+        ctgs = request.form.getlist('category[]')
+        ctgs = [int(c) for c in ctgs]
         model.add_new_game(name, description, released_date, image)
-    # ctgs = model.get_all_category()
-    # return render_template('game/form_game.html', all_ctgs=ctgs)
-    return render_template('game/form_game.html')
+        id_new_game = model.get_latest_game_id()[0]
+        for ctg in ctgs:
+            model.add_liaison_gc(id_new_game,ctg)
+    ctgs = model.get_all_category()
+    return render_template('game/form_game.html', all_ctgs=ctgs)
 
 @app.route("/games/edit/<id>", methods=['GET', 'POST'])
 def edit_game(id):
@@ -70,7 +74,10 @@ def edit_game(id):
         image = request.form['image']
         model.update_game(int(id), name, description, released_date, image)
     data = model.get_game(int(id))
-    return render_template('game/form_game.html', game=data)
+    ctgs = model.get_all_category()
+    game_ctgs = model.get_categories_from_game_id(int(id))
+    print(game_ctgs)
+    return render_template('game/form_game.html', game=data, all_ctgs=ctgs, game_ctgs=game_ctgs)
 
 @app.route("/games/delete/<id>", methods=['GET', 'POST'])
 def delete_game(id):
