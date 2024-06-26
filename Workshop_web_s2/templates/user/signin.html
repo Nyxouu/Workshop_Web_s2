@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="../static/css/menu.css">
+      
+      <title>Speed Score</title>
+  </head>
+ 
+  <body>
+    {% include "menu.html" %}
+    <form action="/signin" method="POST">
+      <div>
+          <label for="email">Email:</label>
+          <input id="email" type="text" name="email" value="justineperso03@gmail.com"required="">
+      </div>
+      <div>
+          <label for="psw">Mot de passe :</label>
+          <input id="psw" type="password" name="psw" required="">
+      </div>
+      <input id="button_signup" type="submit" value="Sign in">
+
+  </form>
+  <h1>{{data}}</h1>
+  </body>
+</html>
+  

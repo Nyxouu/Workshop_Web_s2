@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/css/menu.css">
+      <title>Speed Score</title>
+  </head>
+  <body>
+    {% include "menu.html" %}
+    
+    <form action="" method="POST">
+        <div>
+            <label for="username">Nom d'utilisateur</label>
+            <input id="username" type="text" name="username" value="{{user[0].username}}" required>
+        </div>
+        <div>
+            <label for="email">Adresse mail :</label>
+            <input id="email" type="email" name="email" value="{{user[0].email}}">
+        </div>
+        <div>
+            <label for="nationality">Nationalité :</label>
+            <input id="nationality" type="text" name="nationality" value="{{user[0].nationality}}" required>
+        </div>
+        <div>
+            <label for="password">Changer le mot de passe :</label>
+            <input id="password" type="password" name="password" value="">
+        </div>
+        <input type="submit" value="Modifier">
+    </form>
+
+  </body>
+</html>

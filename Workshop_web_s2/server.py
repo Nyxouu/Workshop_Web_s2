@@ -9,35 +9,75 @@ CORS(app)
 def index():
     return render_template('home.html')
 
-# @app.route("/account")
-# def account():
-#     return render_template('account.html')
+# ---------------------------------------------------------------------------
+# ---------------------------- Users
+# ---------------------------------------------------------------------------
 
-# @app.route("/favorites")
-# def favorites():
-#     return render_template('favorites.html')
+@app.route("/users")
+def users():
+    data = model.get_all_users()
+    return render_template('users.html', users=data)
+   
+@app.route("/users/<id>", methods=['GET']) 
+def user(id):
+    data = model.get_user(int(id))
+    return render_template('profile.html', user=data)
 
-# @app.route("/signin")
-# def signin():
-#     return render_template('signin.html')
+@app.route("/users/edit/<id>", methods=['GET', 'POST'])
+def edit_user(id):
+    if request.method == 'POST' :
+        username = request.form['username'].strip()
+        email = request.form['email'].strip()
+        nationality = request.form['nationality'].strip()
+        password = request.form['password']
+        if password :
+            hashed_password = model.hash_psw(password)
+        else :
+            hashed_password = None
+        model.update_user(int(id), email, username, hashed_password, nationality)
+    data = model.get_user(int(id))
+    return render_template('edit_user.html', user=data)
 
-# @app.route("/signup")
-# def signup():
-#     return render_template('signup.html')
+@app.route("/users/delete/<id>", methods=['GET', 'POST'])
+def delete_user(id):
+    model.delete_one_user(int(id))
+    return redirect("/users", code=302)
 
+# ---------------------------------------------------------------------------
+# ---------------------------- Connexion/Inscription/Comptes
+# ---------------------------------------------------------------------------
+
+@app.route("/account")
+def account():
+    return render_template('account.html')
+
+@app.route("/signup", methods=['GET','POST'])
+def signup():
+    if request.method == 'POST' :
+        username = request.form['username'].strip()
+        email = request.form['email'].strip()
+        password = model.hash_psw(request.form['password'])
+        nationnality = request.form['nationality'].strip()
+        user_add = model.add_user(email, username, password, nationnality)
+        if user_add==True :
+            return render_template('signin.html')
+    
+    return render_template('signup.html')
+
+@app.route("/signin", methods=['GET','POST'])
+def signin():
+    if request.method == 'POST' : 
+        email = request.form['email'].strip()
+        password = model.hash_psw(request.form['psw'])
+        message = model.check_user_existence(email, password)
+        if message == "ok" :
+            return render_template('home.html')
+        return render_template('signin.html', data=message)
+    return render_template('signin.html')
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Games
 # ---------------------------------------------------------------------------
-
-# @app.route("/testadd")
-# def testadd():
-#     model.add_liaison_gc(1,1)
-#     return redirect("/", code=302)
-# @app.route("/testdel")
-# def testdel():
-#     model.delete_liaison_gc(1,1)
-#     return redirect("/", code=302)
 
 @app.route("/games")
 def games():
@@ -127,16 +167,18 @@ def delete_category(id):
     return redirect("/", code=302)
 
 
-# ------------------------------------BACK OFFICE
-# ---------SESSION
+# ---------------------------------------------------------------------------
+# ---------------------------- Session
+# ---------------------------------------------------------------------------
+
 @app.route("/session/add")
 def add_session():
     games = model.get_all_games()
-    return render_template('session/add_session.html', games=games)
+    return render_template('session/form_session.html', games=games)
 
 @app.route("/session/edit/<id>")
 def edit_session():
-    return render_template('session/edit_session.html')
+    return render_template('session/form_session.html')
 
 @app.route("/session/delete/<id>")
 def delete_session():
