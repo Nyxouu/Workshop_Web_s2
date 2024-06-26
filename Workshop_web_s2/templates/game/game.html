@@ -8,12 +8,11 @@
   </head>
   <body>
     {% include "menu.html" %}
-    {% for game in games %}
+    <h1>{{game[0].name}}</h1>
 
-    <p> {{game.name}} </p>
-    <p> {{game.description}} </p>
+    <p> {{game[0].description}} </p>
+    <p> {{game[0].released_date}} </p>
+    <p> image vide {{game[0].image}} </p>
 
-    {% endfor %}
-    <h1>HOME</h1>
   </body>
 </html>
