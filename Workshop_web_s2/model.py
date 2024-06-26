@@ -25,7 +25,7 @@ def hash_psw(psw):
 # ---------------------------- Users
 # ---------------------------------------------------------------------------
 
-def check_user_existence(email, password) :
+def get_user_from_email(email) :
     connection = connect()
     SQL = "SELECT * FROM user WHERE email=%s"
     bd_cursor = connection.cursor()
@@ -34,17 +34,22 @@ def check_user_existence(email, password) :
     data = bd_cursor.fetchall() #values
     fields_list = bd_cursor.description   # keys
     formated_category = format_query(fields_list, data)
+    
+    bd_cursor.close()
+    connection.close()
+    return formated_category
+
+def check_user_existence(email, password) :
+    data = get_user_from_email(email)
     if len(data)==0 :
         message = "le nom est incorect"
         return message
-    if password != data[0][3] :
+    if password != data[0]['password'] :
         message = "le mot de passe est incorrect"
         return message
-    if password == data[0][3] :
+    if password == data[0]['password'] :
         message = "ok"
         return message
-    bd_cursor.close()
-    connection.close()
     return data
 
 def get_all_users() :

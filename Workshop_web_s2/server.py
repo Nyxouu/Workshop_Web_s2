@@ -19,12 +19,12 @@ def index():
 @app.route("/users")
 def users():
     data = model.get_all_users()
-    return render_template('users.html', users=data)
+    return render_template('user/users.html', users=data)
    
 @app.route("/users/<id>", methods=['GET']) 
 def user(id):
     data = model.get_user(int(id))
-    return render_template('profile.html', user=data)
+    return render_template('user/profile.html', user=data)
 
 @app.route("/users/edit/<id>", methods=['GET', 'POST'])
 def edit_user(id):
@@ -39,7 +39,7 @@ def edit_user(id):
             hashed_password = None
         model.update_user(int(id), email, username, hashed_password, nationality)
     data = model.get_user(int(id))
-    return render_template('edit_user.html', user=data)
+    return render_template('user/edit_user.html', user=data)
 
 @app.route("/users/delete/<id>", methods=['GET', 'POST'])
 def delete_user(id):
@@ -59,13 +59,16 @@ def signup():
     if request.method == 'POST' :
         username = request.form['username'].strip()
         email = request.form['email'].strip()
+        if len(model.get_user_from_email(email)) > 0:
+            error = "un compte existe deja avec cet email."
+            return render_template('user/signup.html', message = error)
         password = model.hash_psw(request.form['password'])
         nationnality = request.form['nationality'].strip()
         user_add = model.add_user(email, username, password, nationnality)
         if user_add==True :
-            return render_template('signin.html')
+            return render_template('user/signin.html')
     
-    return render_template('signup.html')
+    return render_template('user/signup.html')
 
 @app.route("/signin", methods=['GET','POST'])
 def signin():
@@ -75,8 +78,8 @@ def signin():
         message = model.check_user_existence(email, password)
         if message == "ok" :
             return render_template('home.html')
-        return render_template('signin.html', data=message)
-    return render_template('signin.html')
+        return render_template('user/signin.html', data=message)
+    return render_template('user/signin.html')
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Games
