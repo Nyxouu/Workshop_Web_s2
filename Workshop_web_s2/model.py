@@ -43,9 +43,47 @@ def add_user(email, username, password, nationality) :
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL, (email, username, password, nationality))
     connection.commit()
-
-    fields_list = bd_cursor.description  #keys
-
     bd_cursor.close()
     connection.close()
     return True
+
+def check_user_existence ( username, password ) :
+    print('username ', username)
+    connection = connect()
+    SQL = "SELECT * FROM user WHERE username='%s'"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute( SQL, username)
+    data = bd_cursor.description
+    print(data)
+    # print('nb de ligne', bd_cursor.rowcount)
+    # if bd_cursor.rowcount <1 :
+    #     bd_cursor.close()
+    #     connection.close()
+    #     print('inconnu')
+    #     return(-1)
+    # user = bd_cursor.fetchone()
+    # if password != user[3] :
+    #     bd_cursor.close()
+    #     connection.close()
+    #     return(1)
+    # if password == user[3] :
+    #     bd_cursor.close()
+    #     connection.close()
+    #     return(0)
+
+
+def get_test(username) :
+    connection = connect()
+    SQL = "SELECT * FROM user WHERE username=%s"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (username,))
+
+    data = bd_cursor.fetchall() #values
+    print(data)
+    fields_list = bd_cursor.description   # keys
+    print(fields_list)
+    formated_category = format_query(fields_list, data)
+    print(formated_category)
+    bd_cursor.close()
+    connection.close()
+    return data

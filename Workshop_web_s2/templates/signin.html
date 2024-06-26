@@ -12,17 +12,17 @@
     {% include "menu.html" %}
     <form action="" method="POST">
       <div>
-          <label for="username">Prenom Nom:</label>
-          <input id="username" type="text" name="username" required="">
+          <label for="user_name">Prenom Nom:</label>
+          <input id="user_name" type="text" name="user_name" required="">
       </div>
       <div>
-          <label for="password">Mot de passe :</label>
-          <input id="password" type="password" name="password" required="">
+          <label for="psw">Mot de passe :</label>
+          <input id="psw" type="password" name="psw" required="">
       </div>
-      <input id="button_signup" type="submit" value="Sign up">
+      <input id="button_signup" type="submit" value="Sign in">
 
   </form>
-    <h1>SIGN IN</h1>
+    <h1>{{texte}}</h1>
   </body>
 </html>
   
