@@ -1,4 +1,5 @@
 import mysql.connector
+import hashlib
 
 def format_query(keys, values):
     column_names = [field[0] for field in keys]
@@ -32,3 +33,19 @@ def get_all_games() :
     bd_cursor.close()
     connection.close()
     return formated_games
+
+def hash_psw(psw):
+   return hashlib.sha256(str(psw).encode('utf-8')).hexdigest()
+
+def add_user(email, username, password, nationality) :
+    connection = connect()
+    SQL = "INSERT INTO user (email,username, password,nationality) VALUES (%s,%s,%s,%s)"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (email, username, password, nationality))
+    connection.commit()
+
+    fields_list = bd_cursor.description  #keys
+
+    bd_cursor.close()
+    connection.close()
+    return True

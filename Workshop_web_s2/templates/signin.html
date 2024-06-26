@@ -10,6 +10,18 @@
  
   <body>
     {% include "menu.html" %}
+    <form action="" method="POST">
+      <div>
+          <label for="username">Prenom Nom:</label>
+          <input id="username" type="text" name="username" required="">
+      </div>
+      <div>
+          <label for="password">Mot de passe :</label>
+          <input id="password" type="password" name="password" required="">
+      </div>
+      <input id="button_signup" type="submit" value="Sign up">
+
+  </form>
     <h1>SIGN IN</h1>
   </body>
 </html>
