@@ -44,7 +44,7 @@ def add_game():
         released_date = request.form['released_date']
         image = request.form['image']
         model.add_new_game(name, description, released_date, image)
-    return render_template('game/add_game.html')
+    return render_template('game/form_game.html')
 
 @app.route("/games/edit/<id>", methods=['GET', 'POST'])
 def edit_game(id):
@@ -56,7 +56,7 @@ def edit_game(id):
         image = request.form['image']
         model.update_game(int(id), name, description, released_date, image)
         data = model.get_game(int(id))
-    return render_template('game/edit_game.html', game=data)
+    return render_template('game/form_game.html', game=data)
 
 @app.route("/games/delete/<id>", methods=['GET', 'POST'])
 def delete_game(id):
