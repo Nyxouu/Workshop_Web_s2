@@ -49,32 +49,7 @@ def add_user(email, username, password, nationality) :
 
 
 
-def check_user_existence ( username, password ) :
-    print('username ', username)
-    connection = connect()
-    SQL = "SELECT * FROM user WHERE username='%s'"
-    bd_cursor = connection.cursor()
-    bd_cursor.execute( SQL, username)
-    data = bd_cursor.description
-    print(data)
-    # print('nb de ligne', bd_cursor.rowcount)
-    # if bd_cursor.rowcount <1 :
-    #     bd_cursor.close()
-    #     connection.close()
-    #     print('inconnu')
-    #     return(-1)
-    # user = bd_cursor.fetchone()
-    # if password != user[3] :
-    #     bd_cursor.close()
-    #     connection.close()
-    #     return(1)
-    # if password == user[3] :
-    #     bd_cursor.close()
-    #     connection.close()
-    #     return(0)
-
-
-def get_test(username, password) :
+def check_user_existence(username, password) :
     connection = connect()
     SQL = "SELECT * FROM user WHERE username=%s"
     bd_cursor = connection.cursor()
@@ -86,11 +61,11 @@ def get_test(username, password) :
     if len(data)==0 :
         message = "le nom est incorect"
         return message
-    if password == data[0][3] :
-        message = "vous etes connecte"
-        return message
     if password != data[0][3] :
         message = "le mot de passe est incorrect"
+        return message
+    if password == data[0][3] :
+        message = "ok"
         return message
     bd_cursor.close()
     connection.close()

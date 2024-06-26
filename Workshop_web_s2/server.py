@@ -39,26 +39,19 @@ def signup():
 def signin():
     if request.method == 'POST' : 
         username = request.form['user_name']
-        data = model.get_test(username)
-        return data   
-        # username = request.form['user_name']
-        # password = model.hash_psw(request.form['psw'])
-        # if model.check_user_existence(username, password)==-1:
-        #     message = "Votre nom d'utilisateur n'est pas bon"
-        #     return render_template('signin.html', text = message)
-        # if model.check_user_existence(username, password)==1:
-        #     message = "Votre mot de passe n'est pas bon"
-        #     return render_template('signin.html', text = message)
-        # if model.check_user_existence(username, password)==0:
-        #     return render_template('account.html')
+        password = model.hash_psw(request.form['psw'])
+        message = model.check_user_existence(username, password)
+        if message == "ok" :
+            return render_template('home.html')
+        return render_template('signin.html', data=message)
     return render_template('signin.html')
 
-@app.route("/ggg", methods=['GET','POST']) 
-def test():
-    username = request.form['user_name']
-    password = model.hash_psw(request.form['psw'])
-    message = model.get_test(username, password)
-    return render_template('signin.html', data=message)
+# @app.route("/ggg", methods=['GET','POST']) 
+# def test():
+#     username = request.form['user_name']
+#     password = model.hash_psw(request.form['psw'])
+#     message = model.check_user_existence(username, password)
+#     return render_template('signin.html', data=message)
 
 # @app.route("/account")
 # def account():
