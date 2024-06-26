@@ -30,14 +30,14 @@ def index():
 # ---------------------------- Games
 # ---------------------------------------------------------------------------
 
-@app.route("/testadd")
-def testadd():
-    model.add_liaison_gc(1,1)
-    return redirect("/", code=302)
-@app.route("/testdel")
-def testdel():
-    model.delete_liaison_gc(1,1)
-    return redirect("/", code=302)
+# @app.route("/testadd")
+# def testadd():
+#     model.add_liaison_gc(1,1)
+#     return redirect("/", code=302)
+# @app.route("/testdel")
+# def testdel():
+#     model.delete_liaison_gc(1,1)
+#     return redirect("/", code=302)
 
 @app.route("/games")
 def games():
@@ -52,25 +52,47 @@ def game(id):
 @app.route("/games/add", methods=['GET', 'POST'])
 def add_game():
     if request.method == 'POST' :
-        name = request.form['name']
-        description = request.form['description']
+        name = request.form['name'].strip()
+        description = request.form['description'].strip()
         released_date = request.form['released_date']
-        image = request.form['image']
+        image = request.form['image'].strip()
+        ctgs = request.form.getlist('category[]')
+        ctgs = [int(c) for c in ctgs]
         model.add_new_game(name, description, released_date, image)
-    # ctgs = model.get_all_category()
-    # return render_template('game/form_game.html', all_ctgs=ctgs)
-    return render_template('game/form_game.html')
+        id_new_game = model.get_latest_game_id()[0]
+        for ctg in ctgs:
+            model.add_liaison_gc(id_new_game,ctg)
+    ctgs = model.get_all_category()
+    return render_template('game/form_game.html', all_ctgs=ctgs)
 
 @app.route("/games/edit/<id>", methods=['GET', 'POST'])
 def edit_game(id):
     if request.method == 'POST' :
-        name = request.form['name']
-        description = request.form['description']
+        name = request.form['name'].strip()
+        description = request.form['description'].strip()
         released_date = request.form['released_date']
-        image = request.form['image']
+        image = request.form['image'].strip()
         model.update_game(int(id), name, description, released_date, image)
+
+        #gestion category
+        previous_ctgs = model.get_categories_from_game_id(int(id))
+        # previous_ctgs = [ctg['id_category'] for ctg in previous_ctgs]
+        new_ctgs = request.form.getlist('category[]')
+        new_ctgs = [int(c) for c in new_ctgs]
+
+        for previous_ctg in previous_ctgs:
+            if previous_ctg not in new_ctgs:
+                model.delete_liaison_gc(id, previous_ctg)
+
+        for new_ctg in new_ctgs:
+            if new_ctg not in previous_ctgs:
+                model.add_liaison_gc(id, new_ctg)
+
     data = model.get_game(int(id))
-    return render_template('game/form_game.html', game=data)
+    ctgs = model.get_all_category()
+    game_ctgs = model.get_categories_from_game_id(int(id))
+    # game_ctgs = [ctg['id_category'] for ctg in game_ctgs]
+    return render_template('game/form_game.html', game=data, all_ctgs=ctgs, game_ctgs=game_ctgs)
 
 @app.route("/games/delete/<id>", methods=['GET', 'POST'])
 def delete_game(id):
@@ -84,8 +106,8 @@ def delete_game(id):
 @app.route("/category/add", methods=['GET', 'POST'])
 def add_category():
     if request.method == 'POST':
-        label = request.form.get('label')
-        description = request.form.get('description')
+        label = request.form.get('label').strip()
+        description = request.form.get('description').strip()
         model.add_new_category(label,description)
         # return redirect("/category", code=302)
     return render_template('category/form_category.html')
@@ -93,8 +115,8 @@ def add_category():
 @app.route("/category/edit/<id>", methods=['GET', 'POST'])
 def edit_category(id):
     if request.method == 'POST':
-        label = request.form.get('label')
-        description = request.form.get('description')
+        label = request.form.get('label').strip()
+        description = request.form.get('description').strip()
         model.update_category(id,label,description)
     category = model.get_category_from_id(id)
     return render_template('category/form_category.html', ctg=category)

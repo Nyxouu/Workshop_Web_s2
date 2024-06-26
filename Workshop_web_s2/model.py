@@ -49,6 +49,20 @@ def delete_liaison_gc(id_game, id_category) :
         if connection:
             connection.close()
 
+def get_categories_from_game_id(id_game) :
+    connection = connect()
+    SQL = "select id_category from category join game_category on category.id_category=game_category._id_category where game_category._id_game = %s"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (id_game,))
+
+    data = bd_cursor.fetchall() #values
+    data = [row[0] for row in data]
+    # fields_list = bd_cursor.description   # keys
+    # formated_category = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return data
+
 # ---------------------------------------------------------------------------
 # ---------------------------- Games 
 # ---------------------------------------------------------------------------
@@ -66,6 +80,16 @@ def get_all_games() :
     bd_cursor.close()
     connection.close()
     return formated_games
+
+def get_latest_game_id() :
+    connection = connect()
+    SQL = "SELECT id_game FROM game ORDER BY id_game DESC LIMIT 1"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL)
+    data = bd_cursor.fetchone()
+    bd_cursor.close()
+    connection.close()
+    return data
 
 def get_game(id) :
     connection = connect()
@@ -129,9 +153,9 @@ def delete_one_game(id) :
 # ---------------------------------------------------------------------------
 def get_all_category():
     connection = connect()
-    SQL = "SELECT (id_category,label) FROM category"
+    SQL = "SELECT id_category,label FROM category"
     bd_cursor = connection.cursor()
-    bd_cursor.execute(SQL, (id,))
+    bd_cursor.execute(SQL)
     data = bd_cursor.fetchall() #values
     fields_list = bd_cursor.description   # keys
     formated_category = format_query(fields_list, data)

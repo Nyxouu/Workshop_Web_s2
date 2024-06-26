@@ -20,7 +20,7 @@
         </div>
         <div>
             <label for="description">Description :</label>
-            <textarea id="description" type="text" name="description" required>{% if game and game[0] %} {{game[0].description}} {% endif %}</textarea>
+            <textarea id="description" type="text" name="description" required>{% if game and game[0] %}{{game[0].description}}{% endif %}</textarea>
         </div>
         <div>
             <label for="image">Image du jeu :</label>
@@ -34,10 +34,10 @@
                   <label for="scales">Scales</label>
                 </div>
               </fieldset> -->
-            <select name="category" multiple size="6">
-                <!-- {% for category in all_ctgs %}
-                    <option value="{{category.id}}">{{category.label}}</option>
-                {% endfor %} -->
+            <select name="category[]" multiple size="6">
+                {% for category in all_ctgs %}
+                    <option value="{{ category.id_category }}"{% if category.id_category in game_ctgs %} selected {% endif %}>{{ category.label }}</option>
+                {% endfor %}
             </select>
         </div>
         <input type="submit" value="Go go">
