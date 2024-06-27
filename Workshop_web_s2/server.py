@@ -1,9 +1,12 @@
-from flask import Flask,request,render_template,redirect
+from flask import Flask,request,render_template,redirect, session
 from flask_cors import CORS
 from datetime import date as dt
 import model
+import os
+
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'default_secret_key')
 CORS(app)
 
 @app.route("/")
@@ -78,9 +81,31 @@ def signin():
         password = model.hash_psw(request.form['psw'])
         message = model.check_user_existence(email, password)
         if message == "ok" :
-            return render_template('home.html')
+            session['id_user'] = model.get_user_from_email(email)[0]['id_user']
+            session['email'] = email
+            session['username'] = model.get_user_from_email(email)[0]['username']
+            session['profile_picture'] = model.get_user_from_email(email)[0]['profile_picture']
+            session['nationality'] = model.get_user_from_email(email)[0]['nationality']
+            session['admin'] = model.get_user_from_email(email)[0]['admin']
+            games_per_category = model.get_number_of_games_per_category()
+            sessions_per_category = model.get_number_of_sessions_per_category()
+            infos_categories = model.combine_infos_categories(games_per_category, sessions_per_category)
+            return render_template('home.html', infos_categories=infos_categories)
         return render_template('user/signin.html', data=message)
     return render_template('user/signin.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('id_user', None)
+    session.pop('email', None)
+    session.pop('username', None)
+    session.pop('profile_picture', None)
+    session.pop('nationality', None)
+    session.pop('admin', None)
+    games_per_category = model.get_number_of_games_per_category()
+    sessions_per_category = model.get_number_of_sessions_per_category()
+    infos_categories = model.combine_infos_categories(games_per_category, sessions_per_category)
+    return render_template('home.html', infos_categories=infos_categories)
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Games

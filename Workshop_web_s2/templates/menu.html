@@ -9,5 +9,17 @@
                 <li id="header_signup"><a href="/signup">Sign up</a></li>
             </ul>
         </nav>
+    
+    {% if 'username' in session %}
+        <h1>Welcome, {{ session['id_user'] }}!</h1>
+        <h1>Welcome, {{ session['email'] }}!</h1>
+        <h1>Welcome, {{ session['username'] }}!</h1>
+        <h1>Welcome, {{ session['profile_picture'] }}!</h1>
+        <h1>Welcome, {{ session['nationality'] }}!</h1>
+        <h1>Welcome, {{ session['admin'] }}!</h1>
+    {% else %}
+        <h1>NON</h1>
+    {% endif %}
+
     </header>
 
