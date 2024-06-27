@@ -385,3 +385,46 @@ def combine_infos_categories(games_per_category, sessions_per_category):
 
     combined_list = list(combined_dict.values())
     return combined_list
+
+# ---------------------------------------------------------------------------
+# ---------------------------- Session
+# ---------------------------------------------------------------------------
+
+def get_all_sessions():
+    connection = connect()
+
+    SQL = "SELECT * FROM sessions"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL)
+
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description  #keys
+    formated_sessions = format_query(fields_list, data)
+
+    bd_cursor.close()
+    connection.close()
+    return formated_sessions
+
+def add_new_session(time, date, game, user, ctg):
+    try:
+        connection = connect()
+        SQL = "INSERT INTO session (time, date, _id_game, _id_user, _id_category) VALUES (%s, %s, %s, %s, %s)"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (time, date, game, user, ctg))
+        connection.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
+
+
+
+
+
+
+
+
+

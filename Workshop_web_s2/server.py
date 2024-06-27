@@ -1,5 +1,6 @@
 from flask import Flask,request,render_template,redirect
 from flask_cors import CORS
+from datetime import date as dt
 import model
 
 app = Flask(__name__)
@@ -182,16 +183,26 @@ def delete_category(id):
 # ---------------------------- Session
 # ---------------------------------------------------------------------------
 
-@app.route("/session/add")
+@app.route("/session", methods=['GET', 'POST'])
+def list_session():
+    sessions = model.get_all_sessions()
+    return render_template('session/session.html', sessions=sessions)
+
+@app.route("/session/add", methods=['GET', 'POST'])
 def add_session():
+    if request.method == 'POST' :
+        time = request.form['time']
+        game = request.form['game']
+        ctg = request.form['category']
+        today = dt.today()
+        # user = USER 
+        user = 1
+        model.add_new_session(time, today, game, user, ctg)
     games = model.get_all_games()
     return render_template('session/form_session.html', games=games)
 
-@app.route("/session/edit/<id>")
-def edit_session():
-    return render_template('session/form_session.html')
-
 @app.route("/session/delete/<id>")
-def delete_session():
-    return render_template('session/delete_session.html')
+def delete_session(id):
+    model.delete_session_from_id(id)
+    return redirect("/", code=302)
 

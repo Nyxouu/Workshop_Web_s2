@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/css/menu.css">
+      <title>Speed Score</title>
+  </head>
+  <body>
+    {% include "menu.html" %}
+    <h1>SESIONS</h1>
+
+    {% for session in sessions %}
+
+        <a href="session/delete/{{session.id_session}}">{{session.time}}</a>
+
+    {% endfor %}
+
+  </body>
+</html>
