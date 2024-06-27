@@ -284,6 +284,18 @@ def delete_one_game(id) :
         if connection:
             connection.close()
 
+def get_session_from_game_category(id_game, id_category) :
+    connection = connect()
+    SQL = "SELECT user.username, user.nationality, session.time, session.date, game.name, category.label from user join session on user.id_user = session._id_user join category on session._id_category = category.id_category join game on session._id_game = game.id_game where session._id_game = %s and session._id_category = %s order by session.time asc"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (id_game, id_category)) 
+    data = bd_cursor.fetchall()
+    fields_list = bd_cursor.description
+    formated_sessions = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return formated_sessions
+
 # ---------------------------------------------------------------------------
 # ---------------------------- Category
 # ---------------------------------------------------------------------------
