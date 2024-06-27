@@ -445,6 +445,21 @@ def get_all_sessions():
     connection.close()
     return formated_sessions
 
+def get_sessions_from_user(id) :
+    connection = connect()
+
+    SQL = "SELECT * FROM session where _id_user = %s"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (id,))
+
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description  #keys
+    formated_sessions = format_query(fields_list, data)
+
+    bd_cursor.close()
+    connection.close()
+    return formated_sessions
+
 def add_new_session(time, date, game, user, ctg):
     try:
         connection = connect()

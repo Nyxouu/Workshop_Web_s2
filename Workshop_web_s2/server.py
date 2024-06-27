@@ -253,8 +253,8 @@ def delete_category(id):
 # ---------------------------------------------------------------------------
 
 @app.route("/sessions", methods=['GET', 'POST'])
-def list_session():
-    sessions = model.get_all_sessions()
+def get_sessions_of_user():
+    sessions = model.get_sessions_from_user(int(session['id_user']))
     return render_template('session/session.html', sessions=sessions)
 
 @app.route("/session/add", methods=['GET', 'POST'])
