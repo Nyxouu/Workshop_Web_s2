@@ -19,25 +19,27 @@ def index():
 # ---------------------------- Admin
 # ---------------------------------------------------------------------------
 
-@app.route("/users/admin_games")
+@app.route("/admin_games")
 def admin_games():
     data = model.get_all_games()
     return render_template('admin/games/admin_games.html', games=data)
 
-@app.route("/users/games/admin/<id>", methods=['GET']) 
+@app.route("/games/admin/<id>", methods=['GET']) 
 def admin_game(id):
     data = model.get_game(int(id))
     return render_template('admin/games/admin_game.html', game=data)
 
-@app.route("/users/admin_categories")
+@app.route("/admin_categories")
 def admin_categories():
-    return render_template('admin/categories/admin_categories.html')
+    data = model.get_all_category()
+    print (data)
+    return render_template('admin/categories/admin_categories.html', categories=data)
 
-@app.route("/users/admin_sessions")
+@app.route("/admin_sessions")
 def admin_sessions():
     return render_template('admin/sessions/admin_sessions.html')
 
-@app.route("/users/admin_users")
+@app.route("/admin_users")
 def admin_users():
     return render_template('admin/users/admin_users.html')
 
@@ -197,8 +199,9 @@ def edit_game(id):
 
 @app.route("/games/delete/<id>", methods=['GET', 'POST'])
 def delete_game(id):
-    model.delete_one_game(int(id))
-    return redirect("/games", code=302)
+    model.delete_one_game(id)
+    print (id)
+    return redirect("/admin_games", code=302)
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Category

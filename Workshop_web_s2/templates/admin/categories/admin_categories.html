@@ -8,7 +8,19 @@
   </head>
   <body>
     {% include "menu.html" %}
-    <h1>CAT</h1>
+    <h1>CATEGORIES</h1>
+
+    <a href="/category/add">Add categories</a>
+
+    {% for category in categories %}
+
+        <a href="/categories/admin/{{category.id_category}}">{{category.label}}</a>
+        <a href="/categories/delete/{{category.id_category}}">delete</a>
+        <a href="/categories/edit/{{category.id_category}}">edit</a>
+        </br> 
+
+    {% endfor %}
+
 
   </body>
 </html>

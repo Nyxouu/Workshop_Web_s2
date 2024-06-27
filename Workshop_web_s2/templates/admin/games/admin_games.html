@@ -14,9 +14,9 @@
 
     {% for game in games %}
 
-        <a href="games/admin/{{game.id_game}}">{{game.name}}</a>
-        <a href="games/delete/{{game.id_game}}">delete</a>
-        <a href="games/edit/{{game.id_game}}">edit</a>
+        <a href="/games/admin/{{game.id_game}}">{{game.name}}</a>
+        <a href="/games/delete/{{game.id_game}}">delete</a>
+        <a href="/games/edit/{{game.id_game}}">edit</a>
         </br> 
 
     {% endfor %}
