@@ -70,8 +70,8 @@ section {
     padding: 10px 15px;
     border-radius: 15px;
 }
-.button:hover {
-    background-color: var(--main-primary-color);
-    color: var(--main-bg-color);
-}
+    .button:hover {
+        background-color: var(--main-primary-color);
+        color: var(--main-bg-color);
+    }
 
