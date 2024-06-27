@@ -11,7 +11,7 @@
     <title>Speed Score</title>
   </head>
   <body>
-     <div id="wrapper"><!-- condition a faire pour l'affichage couleur fond -->
+     <div id="wrapper" {% if  session['admin']==1 %}class="admin"{% endif %}>
 
       <header>
         {% include "menu.html" %}
@@ -23,11 +23,23 @@
         </section>
         <div class="separator"></div>
         <section id="content">
+          <h2>Mon profil</h2>
+          <p> {{user[0].username}} </p>
           <p> {{user[0].email}} </p>
           <p> {{user[0].nationality}} </p>
-          <a href="/sessions">Voir les sessions</a>
+
+          <a href="/sessions">Voir mes sessions</a>
           <a href="/user/edit/{{user[0].id_user}}">Modifier son profil</a>
           <a href="/logout">Déconnexion</a>
+
+          <br>
+          
+          {% if  session['admin']==1 %}
+            <a href="/admin_games">Administrer les jeux</a>
+            <a href="/admin_categories">Administrer les catégories</a>
+            <a href="/admin_sessions">Administrer les sessions</a>
+            <a href="/admin_users">Administrer les utilisateurs</a>
+          {% endif %}
         </section>
       </main>
     </div>

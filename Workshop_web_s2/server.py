@@ -65,8 +65,8 @@ def users():
 def user(id):
     data = model.get_user(int(id))
     if data[0]['admin']==1 :
-        return render_template('admin/admin_profile.html', user=data)
-    return render_template('user/profile.html', user=data)
+        return render_template('profile.html', user=data)
+    return render_template('profile.html', user=data)
 
 @app.route("/user/edit/<id>", methods=['GET', 'POST'])
 def edit_user(id):
@@ -82,8 +82,8 @@ def edit_user(id):
         model.update_user(int(id), email, username, hashed_password, nationality)
         data = model.get_user(int(id))
         if data[0]['admin']==1 :
-            return render_template('admin/admin_profile.html', user=data)
-        return render_template('user/profile.html', user=data)
+            return render_template('profile.html', user=data)
+        return render_template('profile.html', user=data)
     data = model.get_user(int(id))
     return render_template('user/edit_user.html', user=data)
 
