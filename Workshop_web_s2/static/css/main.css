@@ -69,9 +69,28 @@ section {
     color: var(--white);
     padding: 10px 15px;
     border-radius: 15px;
+    font-weight: 500;
+    border: none;
+    font-size: 16px;
+    color: rgba(247, 247, 247, 0.5);
+
 }
     .button:hover {
         background-color: var(--main-primary-color);
         color: var(--main-bg-color);
     }
 
+section#title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.warning {
+    font-size: 18x;
+    color: red;
+    text-shadow: white 0px 0 3px;
+}
+.warning::first-letter {
+    text-transform: capitalize;
+}

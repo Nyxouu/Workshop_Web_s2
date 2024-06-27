@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/menu.css">
+    <link rel="stylesheet" href="/static/css/form.css">
         <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
-      <link rel="stylesheet" href="/static/css/main.css">
-      <link rel="stylesheet" href="/static/css/menu.css">
-        <link rel="stylesheet" href="/static/css/forms.css">
         <title>Speed Score</title>
 
         <script>
@@ -48,26 +48,40 @@
         </script>
     </head>
     <body>
-        {% include "menu.html" %}
-        <form action="" method="POST">
-            <div>
-                <label for="game">Jeu :</label>
-                <select name="game" id="game-select" required="required">
-                    {% for game in games %}
-                    <option value="{{game.id_game}}">{{game.name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <label for="category">Catégorie :</label>
-                <select name="category" id="category-select" required="required">
-                </select>
-            </div>
-            <div>
-                <label for="time">Score:</label>
-                <input id="score-input" type="time" name="time" step="0.001" required="required">
-            </div>
-            <input type="submit" value="Go">
-        </form>
+        <div id="wrapper">
+
+            <header>
+              {% include "menu.html" %}
+            </header>
+          
+            <main>
+              <section id="title">
+                <h1>Ajout/Modification session (a modif)</h1>
+              </section>
+              <div class="separator"></div>
+              <section id="content">
+                  <form action="" method="POST">
+                      <div>
+                          <label for="game">Jeu :</label>
+                          <select name="game" id="game-select" required="required">
+                              {% for game in games %}
+                              <option value="{{game.id_game}}">{{game.name}}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                      <div>
+                          <label for="category">Catégorie :</label>
+                          <select name="category" id="category-select" required="required">
+                          </select>
+                      </div>
+                      <div>
+                          <label for="time">Score:</label>
+                          <input id="score-input" type="time" name="time" step="0.001" required="required">
+                      </div>
+                      <input type="submit" value="Go">
+                  </form>
+              </section>
+            </main>
+          </div>
     </body>
 </html>
