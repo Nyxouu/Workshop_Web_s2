@@ -1,14 +1,20 @@
 
-    <header>
+        <div class="logo">
+            <img src="/static/img/logo.svg" alt="logo speedscore">
+        </div>
         <nav>
             <ul>
                 <li id="header_home"><a href="/">Home</a></li>
                 <li id="header_games"><a href="/games">Games</a></li>
-                <li id="header_search"><input type="search" id="games-search" placeholder="Search"/></li>
+
+                <li id="header_search"><input type="search" id="games-search" placeholder="Search"/><div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div></li>
+                <li id="header_signin" class="button"><a href="/signin">Sign in</a></li>
+                <li id="header_signup" class="button"><a href="/signup">Sign up</a></li>
+
             </ul>
         </nav>
     
-    {% if 'username' in session %}
+    <!-- {% if 'username' in session %}
         <h1>Welcome, {{ session['id_user'] }}!</h1>
         <h1>Welcome, {{ session['email'] }}!</h1>
         <h1>Welcome, {{ session['username'] }}!</h1>
@@ -22,10 +28,5 @@
         {% endif %}
     {% else %}
         <h1>NON</h1>
-        <li id="header_signin"><a href="/signin">Sign in</a></li>
-    {% endif %}
-
-    
-
-    </header>
+    {% endif %} -->
 

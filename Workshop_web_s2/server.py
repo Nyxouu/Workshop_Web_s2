@@ -45,6 +45,14 @@ def admin_users():
 
 
 
+@app.route("/search", methods=['GET'])
+def search():
+    if request.method == 'GET':
+        game_name = request.args.get('games-search')
+        games = model.search_games_by_name(game_name)
+        return render_template('game/games.html', games=games)
+    return
+
 # ---------------------------------------------------------------------------
 # ---------------------------- Users
 # ---------------------------------------------------------------------------
@@ -207,7 +215,7 @@ def delete_game(id):
 # ---------------------------- Category
 # ---------------------------------------------------------------------------
 
-@app.route("/get_categories/<idGame>", methods=['GET', 'POST'])
+@app.route("/get_categories_from_game/<idGame>", methods=['GET', 'POST'])
 def get_categories(idGame):
     data = model.get_categories_from_game_id(idGame)
     return data
