@@ -42,7 +42,8 @@ def admin_sessions():
 
 @app.route("/admin_users")
 def admin_users():
-    return render_template('admin/users/admin_users.html')
+    data = model.get_all_users()
+    return render_template('admin/users/admin_users.html', users = data)
 
 @app.route("/search", methods=['GET'])
 def search():
@@ -68,7 +69,7 @@ def user(id):
         return render_template('admin/admin_profile.html', user=data)
     return render_template('user/profile.html', user=data)
 
-@app.route("/users/edit/<id>", methods=['GET', 'POST'])
+@app.route("/user/edit/<id>", methods=['GET', 'POST'])
 def edit_user(id):
     if request.method == 'POST' :
         username = request.form['username'].strip()
@@ -83,10 +84,10 @@ def edit_user(id):
     data = model.get_user(int(id))
     return render_template('user/edit_user.html', user=data)
 
-@app.route("/users/delete/<id>", methods=['GET', 'POST'])
+@app.route("/user/delete/<id>", methods=['GET', 'POST'])
 def delete_user(id):
     model.delete_one_user(int(id))
-    return redirect("/users", code=302)
+    return redirect("/admin_users", code=302)
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Connexion/Inscription/Comptes
