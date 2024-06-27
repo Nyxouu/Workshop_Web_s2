@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
-      <link rel="stylesheet" href="/static/css/main.css">
-      <link rel="stylesheet" href="/static/css/menu.css">
-      <title>Speed Score</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/menu.css">
+    <link rel="stylesheet" href="/static/css/form.css">
+    <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
+    <title>Speed Score</title>
   </head>
 
   <body>
-    {% include "menu.html" %}
-    <form action="" method="POST">
-        <div>
-            <label for="username">Nom d'utilisateur:</label>
-            <input id="username" type="text" name="username" required="">
-        </div>
-        <div>
-            <label for="email">Email :</label>
-            <input id="email" type="email" name="email" required="">
-        </div>
-        <div>
-            <label for="password">Mot de passe :</label>
-            <input id="password" type="password" name="password" required="">
-        </div>
-        <div>
-            <label for="nationality">Nationalité :</label>
-            <input id="nationality" type="text" name="nationality" required="">
-        </div>
-        <input id="button_signup" type="submit" value="Sign up">
+    <div id="wrapper">
 
-    </form>
-    <h1>{{message}}</h1>`
+        <header>
+          {% include "menu.html" %}
+        </header>
+      
+        <main>
+          <section id="title">
+            <h1>Sign Up</h1>
+          </section>
+          <div class="separator"></div>
+          <section id="content">
+            <p class="warning">{{message}}</p>
+              <form action="" method="POST">
+                  <div>
+                      <label for="username">Nom d'utilisateur</label>
+                      <input id="username" type="text" name="username" required="">
+                  </div>
+                  <div>
+                      <label for="email">Email </label>
+                      <input id="email" type="email" name="email" required="">
+                  </div>
+                  <div>
+                      <label for="password">Mot de passe </label>
+                      <input id="password" type="password" name="password" required="">
+                  </div>
+                  <div>
+                      <label for="nationality">Nationalité </label>
+                      <input id="nationality" type="text" name="nationality" required="">
+                  </div>
+                  <input id="button_signup" type="submit" value="Sign up" class="button" >
+          
+              </form>
+          </section>
+        </main>
+      </div>
   </body>
 </html>
