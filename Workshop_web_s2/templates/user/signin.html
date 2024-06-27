@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/menu.css">
+    <link rel="stylesheet" href="/static/css/form.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
     <title>Speed Score</title>
   </head>
@@ -19,23 +20,25 @@
       <main>
         <section id="title">
           <h1>Sign In</h1>
+          <div class="settings">
+            <p>Not registered ?    <a href="/signup" class="button">Sign up</a></p>
+          </div>
         </section>
         <div class="separator"></div>
         <section id="content">
+          <p class="warning">{{data}}</p>
           <form action="/signin" method="POST">
             <div>
-                <label for="email">Email:</label>
-                <input id="email" type="text" name="email" value="justineperso03@gmail.com"required="">
+                <label for="email">Email</label>
+                <input id="email" type="text" name="email" required="">
             </div>
             <div>
-                <label for="psw">Mot de passe :</label>
+                <label for="psw">Mot de passe</label>
                 <input id="psw" type="password" name="psw" required="">
             </div>
-            <input id="button_signup" type="submit" value="Sign in">
+            <input id="button_signup" class="button" type="submit" value="Sign in">
       
         </form>
-        <a href="/signup">Sign up</a>
-        <p>{{data}}</p>
         </section>
       </main>
     </div>
