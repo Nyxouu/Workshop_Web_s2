@@ -7,7 +7,7 @@
                 <li id="header_home"><a href="/">Home</a></li>
                 <li id="header_games"><a href="/games">Games</a></li>
 
-                <li id="header_search"><input type="search" id="games-search" placeholder="Search"/><div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div></li>
+                <li id="header_search"><form action="/search" method="GET"><input type="search" id="games-search" name="games-search" placeholder="Search"/></form><div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div></li>
                 {% if 'username' in session %}
                     <li id="header_signin"><a href="/users/{{session['id_user']}}">profile</a></li>
                 {% else %}
