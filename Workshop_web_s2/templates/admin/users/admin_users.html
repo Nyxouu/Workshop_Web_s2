@@ -18,17 +18,17 @@
     
       <main>
         <section id="title">
-          <h1>Users</h1>
+          <h1>utilisateurs</h1>
         </section>
         <div class="separator"></div>
         <section id="content">
-          <a href="/user/add">Add user</a>
+          <a href="/signup">Ajouter un utilisateur</a>
 
           {% for user in users %}
 
               <p>{{user.profile_picture}} {{user.id_user}} {{user.username}} {{user.email}} {{user.nationality}} {{user.admin}}</p>
-              <a href="/user/delete/{{user.id_user}}">delete</a>
-              <a href="/user/edit/{{user.id_user}}">edit</a>
+              <a href="/user/delete/{{user.id_user}}">Supprimer</a>
+              <a href="/user/edit/{{user.id_user}}">Ajouter</a>
               </br> 
 
           {% endfor %}

@@ -32,7 +32,6 @@ def admin_game(id):
 @app.route("/admin_categories")
 def admin_categories():
     data = model.get_all_category()
-    print (data)
     return render_template('admin/categories/admin_categories.html', categories=data)
 
 @app.route("/admin_sessions")
@@ -230,7 +229,6 @@ def add_category():
         label = request.form.get('label').strip()
         description = request.form.get('description').strip()
         model.add_new_category(label,description)
-        # return redirect("/category", code=302)
     return render_template('admin/categories/form_category.html')
 
 @app.route("/categories/edit/<id>", methods=['GET', 'POST'])
@@ -239,6 +237,8 @@ def edit_category(id):
         label = request.form.get('label').strip()
         description = request.form.get('description').strip()
         model.update_category(id,label,description)
+        data = model.get_all_category()
+        return render_template('admin/categories/admin_categories.html', categories=data)
     category = model.get_category_from_id(id)
     return render_template('admin/categories/form_category.html', ctg=category)
 
@@ -266,6 +266,8 @@ def add_session():
         today = dt.today()
         user = session['id_user']
         model.add_new_session(time, today, game, user, ctg)
+        sessions = model.get_all_sessions()
+        return render_template('session/session.html', sessions=sessions)
     games = model.get_all_games()
     return render_template('session/form_session.html', games=games)
 

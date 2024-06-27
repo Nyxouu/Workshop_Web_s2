@@ -19,13 +19,13 @@
     
       <main>
         <section id="title">
-          <h1>Modif sessions...</h1>
+          <h1>Ajouter un jeu</h1>
         </section>
         <div class="separator"></div>
         <section id="content">
           <form action="" method="POST">
               <div>
-                  <label for="name">Nom du jeu</label>
+                  <label for="name">Nom du jeu :</label>
                   <input id="name" type="text" name="name" {% if game and game[0] %} value="{{game[0].name}}" {% endif %} required>
               </div>
               <div>
@@ -34,20 +34,21 @@
               </div>
               <div>
                   <label for="description">Description :</label>
-                  <textarea id="description" type="text" name="description" required>{% if game and game[0] %}{{game[0].description}}{% endif %}</textarea>
+                  <textarea id="description" type="text" name="description" maxlength="1000" required>{% if game and game[0] %}{{game[0].description}}{% endif %}</textarea>
               </div>
               <div>
                   <label for="image">Image du jeu :</label>
                   <input id="image" type="text" name="image" {% if game and game[0] %} value="{{game[0].image}}" {% endif %}>
               </div>
               <div>
+                <label for="image">Catégories de speedrun :</label>
                 <select name="category[]" multiple size="6">
                     {% for category in all_ctgs %}
                         <option value="{{ category.id_category }}"{% if category.id_category in game_ctgs %} selected {% endif %}>{{ category.label }}</option>
                     {% endfor %}
                 </select>
               </div>
-              <input type="submit" value="Go go" class="button">
+              <input type="submit" value="Enregistrer" class="button">
           </form>
         </section>
       </main>

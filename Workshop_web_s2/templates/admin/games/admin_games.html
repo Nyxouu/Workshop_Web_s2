@@ -18,17 +18,17 @@
     
       <main>
         <section id="title">
-          <h1>Games</h1>
+          <h1>Jeux</h1>
         </section>
         <div class="separator"></div>
         <section id="content">
-          <a href="/games/add">Add games</a>
+          <a href="/games/add">Ajouter un jeu</a>
       
           {% for game in games %}
       
               <a href="/games/admin/{{game.id_game}}">{{game.name}}</a>
-              <a href="/games/delete/{{game.id_game}}">delete</a>
-              <a href="/games/edit/{{game.id_game}}">edit</a>
+              <a href="/games/delete/{{game.id_game}}">Supprimer</a>
+              <a href="/games/edit/{{game.id_game}}">Éditer</a>
               </br> 
       
           {% endfor %}

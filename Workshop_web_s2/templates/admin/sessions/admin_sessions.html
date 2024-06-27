@@ -18,16 +18,16 @@
     
       <main>
         <section id="title">
-          <h1>Sessions</h1>
+          <h1>Sessions de speedrun</h1>
         </section>
         <div class="separator"></div>
         <section id="content">
-          <a href="/session/add">Add session</a>
+          <a href="/session/add">Ajouter une session</a>
       
           {% for session in sessions %}
       
               <p>{{session._id_user}} {{session._id_game}} {{session._id_category}} {{session.date}} {{session.time}}</p>
-              <a href="/session/delete/{{session.id_session}}">delete</a>
+              <a href="/session/delete/{{session.id_session}}">Supprimer</a>
               </br> 
       
           {% endfor %}

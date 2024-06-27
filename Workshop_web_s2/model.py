@@ -55,7 +55,7 @@ def check_user_existence(email, password) :
 def get_all_users() :
     connection = connect()
 
-    SQL = "SELECT * FROM user"
+    SQL = "SELECT * FROM user ORDER BY username ASC"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL)
 
@@ -176,7 +176,7 @@ def get_categories_from_game_id(id_game) :
 def get_all_games() :
     connection = connect()
 
-    SQL = "SELECT * FROM game"
+    SQL = "SELECT * FROM game ORDER BY name ASC"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL)
 
@@ -212,7 +212,7 @@ def get_game(id) :
 
 def search_games_by_name(game_name):
     connection = connect()
-    SQL = "SELECT * FROM game WHERE LOWER(name) LIKE %s"
+    SQL = "SELECT * FROM game WHERE LOWER(name) LIKE %s ORDER BY name ASC"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL, ('%' + game_name.lower() + '%',)) 
     data = bd_cursor.fetchall()
@@ -283,7 +283,7 @@ def delete_one_game(id) :
 # ---------------------------------------------------------------------------
 def get_all_category():
     connection = connect()
-    SQL = "SELECT id_category,label FROM category"
+    SQL = "SELECT id_category,label FROM category ORDER BY label ASC"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL)
     data = bd_cursor.fetchall() #values

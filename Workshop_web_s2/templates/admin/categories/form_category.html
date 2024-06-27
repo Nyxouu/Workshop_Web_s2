@@ -29,9 +29,9 @@
                   </div>
                   <div>
                       <label for="description">Description :</label>
-                      <textarea id="description-input" name="description" rows="5" cols="33" minlength="1" maxlength="500" required="required">{% if ctg and ctg[0] %}{{ ctg[0].description if ctg[0].description else '' }}{% endif %}</textarea>
+                      <textarea id="description-input" name="description" rows="5" cols="33" maxlength="500">{% if ctg and ctg[0] %}{{ ctg[0].description if ctg[0].description else '' }}{% endif %}</textarea>
                   </div>
-                  <input type="submit" value="Lezgo" class="button">
+                  <input type="submit" value="Ajouter" class="button">
               </form>
           </section>
         </main>
