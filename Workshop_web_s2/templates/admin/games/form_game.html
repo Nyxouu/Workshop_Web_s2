@@ -5,45 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/menu.css">
+    <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
     <title>Speed Score</title>
   </head>
   <body>
-    {% include "menu.html" %}
+    <div id="wrapper" class="admin">
+
+      <header>
+        {% include "menu.html" %}
+      </header>
     
-    <form action="" method="POST">
-        <div>
-            <label for="name">Nom du jeu</label>
-            <input id="name" type="text" name="name" {% if game and game[0] %} value="{{game[0].name}}" {% endif %} required>
-        </div>
-        <div>
-            <label for="released_date">Date de sortie :</label>
-            <input id="released_date" type="date" name="released_date" {% if game and game[0] %} value="{{game[0].released_date}}" {% endif %} required>
-        </div>
-        <div>
-            <label for="description">Description :</label>
-            <textarea id="description" type="text" name="description" required>{% if game and game[0] %}{{game[0].description}}{% endif %}</textarea>
-        </div>
-        <div>
-            <label for="image">Image du jeu :</label>
-            <input id="image" type="text" name="image" {% if game and game[0] %} value="{{game[0].image}}" {% endif %}>
-        </div>
-        <div>
-            <!-- <fieldset>
-                <legend>Categories:</legend>
-                <div>
-                  <input type="checkbox" id="scales" name="scales" checked />
-                  <label for="scales">Scales</label>
-                </div>
-              </fieldset> -->
-            <select name="category[]" multiple size="6">
-                {% for category in all_ctgs %}
-                    <option value="{{ category.id_category }}"{% if category.id_category in game_ctgs %} selected {% endif %}>{{ category.label }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <input type="submit" value="Go go">
-    </form>
+      <main>
+        <section id="title">
+          <h1>Modif sessions...</h1>
+        </section>
+        <div class="separator"></div>
+        <section id="content">
+          <form action="" method="POST">
+              <div>
+                  <label for="name">Nom du jeu</label>
+                  <input id="name" type="text" name="name" {% if game and game[0] %} value="{{game[0].name}}" {% endif %} required>
+              </div>
+              <div>
+                  <label for="released_date">Date de sortie :</label>
+                  <input id="released_date" type="date" name="released_date" {% if game and game[0] %} value="{{game[0].released_date}}" {% endif %} required>
+              </div>
+              <div>
+                  <label for="description">Description :</label>
+                  <textarea id="description" type="text" name="description" required>{% if game and game[0] %}{{game[0].description}}{% endif %}</textarea>
+              </div>
+              <div>
+                  <label for="image">Image du jeu :</label>
+                  <input id="image" type="text" name="image" {% if game and game[0] %} value="{{game[0].image}}" {% endif %}>
+              </div>
+              <div>
+                <select name="category[]" multiple size="6">
+                    {% for category in all_ctgs %}
+                        <option value="{{ category.id_category }}"{% if category.id_category in game_ctgs %} selected {% endif %}>{{ category.label }}</option>
+                    {% endfor %}
+                </select>
+              </div>
+              <input type="submit" value="Go go">
+          </form>
+        </section>
+      </main>
+    </div>
+    
 
   </body>
 </html>

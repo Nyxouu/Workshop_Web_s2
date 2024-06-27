@@ -231,7 +231,7 @@ def add_category():
         description = request.form.get('description').strip()
         model.add_new_category(label,description)
         # return redirect("/category", code=302)
-    return render_template('category/form_category.html')
+    return render_template('admin/categories/form_category.html')
 
 @app.route("/categories/edit/<id>", methods=['GET', 'POST'])
 def edit_category(id):
@@ -240,7 +240,7 @@ def edit_category(id):
         description = request.form.get('description').strip()
         model.update_category(id,label,description)
     category = model.get_category_from_id(id)
-    return render_template('category/form_category.html', ctg=category)
+    return render_template('admin/categories/form_category.html', ctg=category)
 
 @app.route("/categories/delete/<id>")
 def delete_category(id):
