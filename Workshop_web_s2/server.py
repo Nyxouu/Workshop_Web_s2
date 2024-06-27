@@ -220,8 +220,7 @@ def add_session():
         game = request.form['game']
         ctg = request.form['category']
         today = dt.today()
-        # user = USER 
-        user = 1
+        user = session['id_user']
         model.add_new_session(time, today, game, user, ctg)
     games = model.get_all_games()
     return render_template('session/form_session.html', games=games)
