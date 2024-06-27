@@ -15,6 +15,35 @@ def index():
     sessions_per_category = model.get_number_of_sessions_per_category()
     infos_categories = model.combine_infos_categories(games_per_category, sessions_per_category)
     return render_template('home.html', infos_categories=infos_categories)
+# ---------------------------------------------------------------------------
+# ---------------------------- Admin
+# ---------------------------------------------------------------------------
+
+@app.route("/admin_games")
+def admin_games():
+    data = model.get_all_games()
+    return render_template('admin/games/admin_games.html', games=data)
+
+@app.route("/games/admin/<id>", methods=['GET']) 
+def admin_game(id):
+    data = model.get_game(int(id))
+    return render_template('admin/games/admin_game.html', game=data)
+
+@app.route("/admin_categories")
+def admin_categories():
+    data = model.get_all_category()
+    print (data)
+    return render_template('admin/categories/admin_categories.html', categories=data)
+
+@app.route("/admin_sessions")
+def admin_sessions():
+    return render_template('admin/sessions/admin_sessions.html')
+
+@app.route("/admin_users")
+def admin_users():
+    return render_template('admin/users/admin_users.html')
+
+
 
 @app.route("/search", methods=['GET'])
 def search():
@@ -36,6 +65,8 @@ def users():
 @app.route("/users/<id>", methods=['GET']) 
 def user(id):
     data = model.get_user(int(id))
+    if data[0]['admin']==1 :
+        return render_template('admin/admin_profile.html', user=data)
     return render_template('user/profile.html', user=data)
 
 @app.route("/users/edit/<id>", methods=['GET', 'POST'])
@@ -143,7 +174,7 @@ def add_game():
         for ctg in ctgs:
             model.add_liaison_gc(id_new_game,ctg)
     ctgs = model.get_all_category()
-    return render_template('game/form_game.html', all_ctgs=ctgs)
+    return render_template('admin/games/form_game.html', all_ctgs=ctgs)
 
 @app.route("/games/edit/<id>", methods=['GET', 'POST'])
 def edit_game(id):
@@ -176,8 +207,9 @@ def edit_game(id):
 
 @app.route("/games/delete/<id>", methods=['GET', 'POST'])
 def delete_game(id):
-    model.delete_one_game(int(id))
-    return redirect("/games", code=302)
+    model.delete_one_game(id)
+    print (id)
+    return redirect("/admin_games", code=302)
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Category
@@ -237,4 +269,6 @@ def add_session():
 def delete_session(id):
     model.delete_session_from_id(id)
     return redirect("/", code=302)
+
+
 

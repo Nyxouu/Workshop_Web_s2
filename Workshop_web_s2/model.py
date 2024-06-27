@@ -255,6 +255,17 @@ def update_game(id, name, description, released_date, image) :
 def delete_one_game(id) :
     try:
         connection = connect()
+        # suppression des sessions utilisant le jeu à supprimer
+        SQL = "delete from session where _id_game = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
+
+        # suppression des game_category utilisant le jeu à supprimer
+        SQL = "delete from game_category where _id_game = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
+
+        # suppression du jeu
         SQL = "delete from game where id_game = %s"
         bd_cursor = connection.cursor()
         bd_cursor.execute(SQL, (id,))

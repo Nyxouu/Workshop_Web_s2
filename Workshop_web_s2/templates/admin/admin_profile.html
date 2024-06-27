@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/css/menu.css">
+      <title>Speed Score</title>
+  </head>
+  <body>
+    {% include "menu.html" %}
+
+    <h1>JE SUIS ADMIN</h1>
+
+    <h1>{{user[0].username}}</h1>
+    <p> {{user[0].email}} </p>
+    <p> {{user[0].nationality}} </p>
+
+    <a href="/admin_games">Admin games</a>
+    <a href="/admin_categories">Admin categoies</a>
+    <a href="/admin_sessions">Admin sessions</a>
+    <a href="/admin_users">Admin users</a>
+
+  </body>
+</html>

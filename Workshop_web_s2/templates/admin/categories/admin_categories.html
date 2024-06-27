@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/css/menu.css">
+      <title>Speed Score</title>
+  </head>
+  <body>
+    {% include "menu.html" %}
+    <h1>CATEGORIES</h1>
+
+    <a href="/category/add">Add categories</a>
+
+    {% for category in categories %}
+
+        <a href="/categories/admin/{{category.id_category}}">{{category.label}}</a>
+        <a href="/categories/delete/{{category.id_category}}">delete</a>
+        <a href="/categories/edit/{{category.id_category}}">edit</a>
+        </br> 
+
+    {% endfor %}
+
+
+  </body>
+</html>
