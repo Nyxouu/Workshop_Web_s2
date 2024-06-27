@@ -86,7 +86,10 @@ def signin():
             session['profile_picture'] = model.get_user_from_email(email)[0]['profile_picture']
             session['nationality'] = model.get_user_from_email(email)[0]['nationality']
             session['admin'] = model.get_user_from_email(email)[0]['admin']
-            return render_template('home.html')
+            games_per_category = model.get_number_of_games_per_category()
+            sessions_per_category = model.get_number_of_sessions_per_category()
+            infos_categories = model.combine_infos_categories(games_per_category, sessions_per_category)
+            return render_template('home.html', infos_categories=infos_categories)
         return render_template('user/signin.html', data=message)
     return render_template('user/signin.html')
 
@@ -98,7 +101,10 @@ def logout():
     session.pop('profile_picture', None)
     session.pop('nationality', None)
     session.pop('admin', None)
-    return render_template('home.html')
+    games_per_category = model.get_number_of_games_per_category()
+    sessions_per_category = model.get_number_of_sessions_per_category()
+    infos_categories = model.combine_infos_categories(games_per_category, sessions_per_category)
+    return render_template('home.html', infos_categories=infos_categories)
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Games
