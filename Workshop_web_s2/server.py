@@ -37,13 +37,12 @@ def admin_categories():
 
 @app.route("/admin_sessions")
 def admin_sessions():
-    return render_template('admin/sessions/admin_sessions.html')
+    sessions = model.get_all_sessions()
+    return render_template('admin/sessions/admin_sessions.html', sessions=sessions)
 
 @app.route("/admin_users")
 def admin_users():
     return render_template('admin/users/admin_users.html')
-
-
 
 @app.route("/search", methods=['GET'])
 def search():
@@ -268,7 +267,7 @@ def add_session():
 @app.route("/session/delete/<id>")
 def delete_session(id):
     model.delete_session_from_id(id)
-    return redirect("/", code=302)
+    return redirect("/admin_sessions", code=302)
 
 
 

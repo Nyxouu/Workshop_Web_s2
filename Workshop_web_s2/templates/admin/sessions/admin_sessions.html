@@ -10,7 +10,16 @@
   </head>
   <body>
     {% include "menu.html" %}
-    <h1>SESSIONS</h1>
+    <h1>SESSION</h1>
 
-  </body>
+    <a href="/session/add">Add session</a>
+
+    {% for session in sessions %}
+
+        <p>{{session._id_user}} {{session._id_game}} {{session._id_category}} {{session.date}} {{session.time}}</p>
+        <a href="/session/delete/{{session.id_session}}">delete</a>
+        </br> 
+
+    {% endfor %}
+
 </html>
