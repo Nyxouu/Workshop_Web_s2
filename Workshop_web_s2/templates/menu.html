@@ -5,8 +5,7 @@
                 <li id="header_home"><a href="/">Home</a></li>
                 <li id="header_games"><a href="/games">Games</a></li>
                 <li id="header_search"><input type="search" id="games-search" placeholder="Search"/></li>
-                <li id="header_signin"><a href="/signin">Sign in</a></li>
-                <li id="header_signup"><a href="/signup">Sign up</a></li>
+                <!-- <li id="header_signup"><a href="/signup">Sign up</a></li> -->
             </ul>
         </nav>
     
@@ -17,9 +16,17 @@
         <h1>Welcome, {{ session['profile_picture'] }}!</h1>
         <h1>Welcome, {{ session['nationality'] }}!</h1>
         <h1>Welcome, {{ session['admin'] }}!</h1>
+        {% if 'admin'==0 %}
+            <li id="header_signin"><a href="/admin/admin_prolile">profile</a></li>
+        {% else %}
+            <li id="header_signin"><a href="/users/{{session['id_user']}}">profile</a></li>
+        {% endif %}
     {% else %}
         <h1>NON</h1>
+        <li id="header_signin"><a href="/signin">Sign in</a></li>
     {% endif %}
+
+    
 
     </header>
 

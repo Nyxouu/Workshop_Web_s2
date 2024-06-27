@@ -393,7 +393,7 @@ def combine_infos_categories(games_per_category, sessions_per_category):
 def get_all_sessions():
     connection = connect()
 
-    SQL = "SELECT * FROM sessions"
+    SQL = "SELECT * FROM session"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL)
 
@@ -411,6 +411,21 @@ def add_new_session(time, date, game, user, ctg):
         SQL = "INSERT INTO session (time, date, _id_game, _id_user, _id_category) VALUES (%s, %s, %s, %s, %s)"
         bd_cursor = connection.cursor()
         bd_cursor.execute(SQL, (time, date, game, user, ctg))
+        connection.commit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        if bd_cursor:
+            bd_cursor.close()
+        if connection:
+            connection.close()
+
+def delete_session_from_id(id):
+    try:
+        connection = connect()
+        SQL = "delete from session where id_session = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
         connection.commit()
     except Exception as e:
         print(f"An error occurred: {e}")

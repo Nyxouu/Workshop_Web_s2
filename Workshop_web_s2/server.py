@@ -15,6 +15,10 @@ def index():
     sessions_per_category = model.get_number_of_sessions_per_category()
     infos_categories = model.combine_infos_categories(games_per_category, sessions_per_category)
     return render_template('home.html', infos_categories=infos_categories)
+# ---------------------------------------------------------------------------
+# ---------------------------- Admin
+# ---------------------------------------------------------------------------
+
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Users
@@ -220,8 +224,7 @@ def add_session():
         game = request.form['game']
         ctg = request.form['category']
         today = dt.today()
-        # user = USER 
-        user = 1
+        user = session['id_user']
         model.add_new_session(time, today, game, user, ctg)
     games = model.get_all_games()
     return render_template('session/form_session.html', games=games)
@@ -230,4 +233,6 @@ def add_session():
 def delete_session(id):
     model.delete_session_from_id(id)
     return redirect("/", code=302)
+
+
 
