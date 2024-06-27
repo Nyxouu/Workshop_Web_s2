@@ -16,6 +16,14 @@ def index():
     infos_categories = model.combine_infos_categories(games_per_category, sessions_per_category)
     return render_template('home.html', infos_categories=infos_categories)
 
+@app.route("/search", methods=['GET'])
+def search():
+    if request.method == 'GET':
+        game_name = request.args.get('games-search')
+        games = model.search_games_by_name(game_name)
+        return render_template('game/games.html', games=games)
+    return
+
 # ---------------------------------------------------------------------------
 # ---------------------------- Users
 # ---------------------------------------------------------------------------
