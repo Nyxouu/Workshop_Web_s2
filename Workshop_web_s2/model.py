@@ -109,15 +109,21 @@ def update_user(id, email, username, password, nationality) :
         if connection:
             connection.close()
 
-def delete_one_user(id) :
+def delete_one_user(id):
     try:
         connection = connect()
+        # suppression des sessions utilisant l'utilisateur à supprimer
+        SQL = "delete from session where _id_user = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
+
+        # suppression de l'utilisateur
         SQL = "delete from user where id_user = %s"
         bd_cursor = connection.cursor()
         bd_cursor.execute(SQL, (id,))
         connection.commit()
     except Exception as e:
-        print("An error occurred: {e}")
+        print(f"An error occurred: {e}")
     finally:
         if bd_cursor:
             bd_cursor.close()
