@@ -9,11 +9,24 @@
       <title>Speed Score</title>
   </head>
   <body>
-    {% include "menu.html" %}
-    <h1>{{user[0].username}}</h1>
+    <div id="wrapper">
 
-    <p> {{user[0].email}} </p>
-    <p> {{user[0].nationality}} </p>
-
+      <header>
+        {% include "menu.html" %}
+      </header>
+    
+      <main>
+        <section id="title">
+    
+        </section>
+        <div class="separator"></div>
+        <section id="content">
+          <h1>{{user[0].username}}</h1>
+      
+          <p> {{user[0].email}} </p>
+          <p> {{user[0].nationality}} </p>
+        </section>
+      </main>
+    </div>
   </body>
 </html>

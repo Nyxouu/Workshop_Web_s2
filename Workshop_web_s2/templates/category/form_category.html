@@ -10,19 +10,33 @@
       <title>Speed Score</title>
   </head>
   <body>
-    {% include "menu.html" %}
-    <form action="" method="POST">
-        <div>
-            <label for="label">Nom de la catégorie :</label>
-            <input id="label-input" type="text" name="label" minlength="1" maxlength="20" required="required" {% if ctg and ctg[0] %} value="{{ctg[0].label}}" {% endif %}>
-        </div>
-        <div>
-            <label for="description">Description :</label>
-            <textarea id="description-input" name="description" rows="5" cols="33" minlength="1" maxlength="500" required="required">{% if ctg and ctg[0] %}{{ ctg[0].description if ctg[0].description else '' }}{% endif %}</textarea>
-        </div>
-        <div>
-            <input type="submit" value="Lezgo">
-        </div>
-    </form>
+    <div id="wrapper">
+
+        <header>
+          {% include "menu.html" %}
+        </header>
+      
+        <main>
+          <section id="title">
+            <h1>Ajout/suppression category (a modif)</h1>
+          </section>
+          <div class="separator"></div>
+          <section id="content">
+              <form action="" method="POST">
+                  <div>
+                      <label for="label">Nom de la catégorie :</label>
+                      <input id="label-input" type="text" name="label" minlength="1" maxlength="20" required="required" {% if ctg and ctg[0] %} value="{{ctg[0].label}}" {% endif %}>
+                  </div>
+                  <div>
+                      <label for="description">Description :</label>
+                      <textarea id="description-input" name="description" rows="5" cols="33" minlength="1" maxlength="500" required="required">{% if ctg and ctg[0] %}{{ ctg[0].description if ctg[0].description else '' }}{% endif %}</textarea>
+                  </div>
+                  <div>
+                      <input type="submit" value="Lezgo">
+                  </div>
+              </form>
+          </section>
+        </main>
+      </div>
   </body>
 </html>

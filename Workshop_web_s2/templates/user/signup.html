@@ -10,27 +10,41 @@
   </head>
 
   <body>
-    {% include "menu.html" %}
-    <form action="" method="POST">
-        <div>
-            <label for="username">Nom d'utilisateur:</label>
-            <input id="username" type="text" name="username" required="">
-        </div>
-        <div>
-            <label for="email">Email :</label>
-            <input id="email" type="email" name="email" required="">
-        </div>
-        <div>
-            <label for="password">Mot de passe :</label>
-            <input id="password" type="password" name="password" required="">
-        </div>
-        <div>
-            <label for="nationality">Nationalité :</label>
-            <input id="nationality" type="text" name="nationality" required="">
-        </div>
-        <input id="button_signup" type="submit" value="Sign up">
+    <div id="wrapper">
 
-    </form>
-    <h1>{{message}}</h1>`
+        <header>
+          {% include "menu.html" %}
+        </header>
+      
+        <main>
+          <section id="title">
+            <h1>Sign Up</h1>
+          </section>
+          <div class="separator"></div>
+          <section id="content">
+              <form action="" method="POST">
+                  <div>
+                      <label for="username">Nom d'utilisateur:</label>
+                      <input id="username" type="text" name="username" required="">
+                  </div>
+                  <div>
+                      <label for="email">Email :</label>
+                      <input id="email" type="email" name="email" required="">
+                  </div>
+                  <div>
+                      <label for="password">Mot de passe :</label>
+                      <input id="password" type="password" name="password" required="">
+                  </div>
+                  <div>
+                      <label for="nationality">Nationalité :</label>
+                      <input id="nationality" type="text" name="nationality" required="">
+                  </div>
+                  <input id="button_signup" type="submit" value="Sign up">
+          
+              </form>
+              <p>{{message}}</p>
+          </section>
+        </main>
+      </div>
   </body>
 </html>

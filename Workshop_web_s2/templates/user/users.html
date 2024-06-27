@@ -9,14 +9,25 @@
       <title>Speed Score</title>
   </head>
   <body>
-    {% include "menu.html" %}
-    <h1>USERS</h1>
+    <div id="wrapper">
 
-    {% for user in users %}
+      <header>
+        {% include "menu.html" %}
+      </header>
 
-        <a href="users/{{user.id_user}}">{{user.username}}</a>
-
-    {% endfor %}
-
+      <main>
+        <section id="title">
+          <h1>Users</h1>
+        </section>
+        <div class="separator"></div>
+        <section id="content">
+          {% for user in users %}
+      
+              <a href="users/{{user.id_user}}">{{user.username}}</a>
+      
+          {% endfor %}
+        </section>
+      </main>
+    </div>
   </body>
 </html>

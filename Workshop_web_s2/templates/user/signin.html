@@ -9,21 +9,35 @@
   </head>
  
   <body>
-    {% include "menu.html" %}
-    <form action="/signin" method="POST">
-      <div>
-          <label for="email">Email:</label>
-          <input id="email" type="text" name="email" value="justineperso03@gmail.com"required="">
-      </div>
-      <div>
-          <label for="psw">Mot de passe :</label>
-          <input id="psw" type="password" name="psw" required="">
-      </div>
-      <input id="button_signup" type="submit" value="Sign in">
+    <div id="wrapper">
 
-  </form>
-  <a href="/signup">Sign up</a>
-  <h1>{{data}}</h1>
+      <header>
+        {% include "menu.html" %}
+      </header>
+    
+      <main>
+        <section id="title">
+          <h1>Sign In</h1>
+        </section>
+        <div class="separator"></div>
+        <section id="content">
+          <form action="/signin" method="POST">
+            <div>
+                <label for="email">Email:</label>
+                <input id="email" type="text" name="email" value="justineperso03@gmail.com"required="">
+            </div>
+            <div>
+                <label for="psw">Mot de passe :</label>
+                <input id="psw" type="password" name="psw" required="">
+            </div>
+            <input id="button_signup" type="submit" value="Sign in">
+      
+        </form>
+        <a href="/signup">Sign up</a>
+        <p>{{data}}</p>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
   
