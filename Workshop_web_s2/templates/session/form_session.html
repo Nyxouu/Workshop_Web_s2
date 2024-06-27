@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/static/css/menu.css">
+        <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="/static/css/main.css">
+      <link rel="stylesheet" href="/static/css/menu.css">
         <link rel="stylesheet" href="/static/css/forms.css">
         <title>Speed Score</title>
 
@@ -16,10 +18,10 @@
                     // console.log('Selected game ID:', selectedGame);
 
                     // Envoyer une requête AJAX pour obtenir les catégories associées
-                    fetch('/get_categories/'+selectedGame)
+                    fetch('/get_categories_from_game/'+selectedGame)
                         .then(response => response.json())
                         .then(categories => {
-                            console.log(categories)
+                            // console.log(categories)
                             updateCategoryList(categories)
                         })
                         .catch(error => {
