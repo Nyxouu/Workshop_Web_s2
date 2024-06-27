@@ -238,10 +238,10 @@ def edit_category(id):
     category = model.get_category_from_id(id)
     return render_template('category/form_category.html', ctg=category)
 
-@app.route("/category/delete/<id>")
+@app.route("/categories/delete/<id>")
 def delete_category(id):
     model.delete_category_from_id(id)
-    return redirect("/", code=302)
+    return redirect("/admin_categories", code=302)
 
 
 # ---------------------------------------------------------------------------
