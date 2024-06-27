@@ -210,6 +210,18 @@ def get_game(id) :
     connection.close()
     return formated_game
 
+def search_games_by_name(game_name):
+    connection = connect()
+    SQL = "SELECT * FROM game WHERE LOWER(name) LIKE %s"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, ('%' + game_name.lower() + '%',)) 
+    data = bd_cursor.fetchall()
+    fields_list = bd_cursor.description
+    formated_games = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return formated_games
+
 def add_new_game(name, description, released_date, image) :
     try:
         connection = connect()
