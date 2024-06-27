@@ -203,7 +203,7 @@ def edit_game(id):
     ctgs = model.get_all_category()
     game_ctgs = model.get_categories_from_game_id(int(id))
     # game_ctgs = [ctg['id_category'] for ctg in game_ctgs]
-    return render_template('game/form_game.html', game=data, all_ctgs=ctgs, game_ctgs=game_ctgs)
+    return render_template('admin/games/form_game.html', game=data, all_ctgs=ctgs, game_ctgs=game_ctgs)
 
 @app.route("/games/delete/<id>", methods=['GET', 'POST'])
 def delete_game(id):
@@ -229,7 +229,7 @@ def add_category():
         # return redirect("/category", code=302)
     return render_template('category/form_category.html')
 
-@app.route("/category/edit/<id>", methods=['GET', 'POST'])
+@app.route("/categories/edit/<id>", methods=['GET', 'POST'])
 def edit_category(id):
     if request.method == 'POST':
         label = request.form.get('label').strip()
