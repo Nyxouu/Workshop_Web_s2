@@ -16,7 +16,7 @@
         <h1>Welcome, {{ session['nationality'] }}!</h1>
         <h1>Welcome, {{ session['admin'] }}!</h1>
         {% if 'admin'==0 %}
-            <li id="header_signin"><a href="/admin/admin_prolile">profile</a></li>
+            <li id="header_signin"><a href="/users/{{session['id_user']}}">profile</a></li>
         {% else %}
             <li id="header_signin"><a href="/users/{{session['id_user']}}">profile</a></li>
         {% endif %}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/static/css/menu.css">
+      <title>Speed Score</title>
+  </head>
+  <body>
+    {% include "menu.html" %}
+    <h1>GAMES</h1>
+
+    <a href="/games/add">Add games</a>
+
+    {% for game in games %}
+
+        <a href="games/admin/{{game.id_game}}">{{game.name}}</a>
+        <a href="games/delete/{{game.id_game}}">delete</a>
+        <a href="games/edit/{{game.id_game}}">edit</a>
+        </br> 
+
+    {% endfor %}
+
+
+  </body>
+</html>

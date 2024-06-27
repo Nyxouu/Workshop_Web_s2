@@ -8,10 +8,17 @@
   </head>
   <body>
     {% include "menu.html" %}
-    <h1>{{user[0].username}}</h1>
 
+    <h1>JE SUIS ADMIN</h1>
+
+    <h1>{{user[0].username}}</h1>
     <p> {{user[0].email}} </p>
     <p> {{user[0].nationality}} </p>
+
+    <a href="/users/admin_games">Admin games</a>
+    <a href="/users/admin_categories">Admin categoies</a>
+    <a href="/users/admin_sessions">Admin sessions</a>
+    <a href="/users/admin_users">Admin users</a>
 
   </body>
 </html>
