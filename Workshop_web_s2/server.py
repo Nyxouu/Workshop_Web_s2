@@ -37,13 +37,13 @@ def admin_categories():
 
 @app.route("/admin_sessions")
 def admin_sessions():
-    return render_template('admin/sessions/admin_sessions.html')
+    sessions = model.get_all_sessions()
+    return render_template('admin/sessions/admin_sessions.html', sessions=sessions)
 
 @app.route("/admin_users")
 def admin_users():
-    return render_template('admin/users/admin_users.html')
-
-
+    data = model.get_all_users()
+    return render_template('admin/users/admin_users.html', users = data)
 
 @app.route("/search", methods=['GET'])
 def search():
@@ -69,7 +69,7 @@ def user(id):
         return render_template('admin/admin_profile.html', user=data)
     return render_template('user/profile.html', user=data)
 
-@app.route("/users/edit/<id>", methods=['GET', 'POST'])
+@app.route("/user/edit/<id>", methods=['GET', 'POST'])
 def edit_user(id):
     if request.method == 'POST' :
         username = request.form['username'].strip()
@@ -81,13 +81,17 @@ def edit_user(id):
         else :
             hashed_password = None
         model.update_user(int(id), email, username, hashed_password, nationality)
+        data = model.get_user(int(id))
+        if data[0]['admin']==1 :
+            return render_template('admin/admin_profile.html', user=data)
+        return render_template('user/profile.html', user=data)
     data = model.get_user(int(id))
     return render_template('user/edit_user.html', user=data)
 
-@app.route("/users/delete/<id>", methods=['GET', 'POST'])
+@app.route("/user/delete/<id>", methods=['GET', 'POST'])
 def delete_user(id):
     model.delete_one_user(int(id))
-    return redirect("/users", code=302)
+    return redirect("/admin_users", code=302)
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Connexion/Inscription/Comptes
@@ -203,7 +207,7 @@ def edit_game(id):
     ctgs = model.get_all_category()
     game_ctgs = model.get_categories_from_game_id(int(id))
     # game_ctgs = [ctg['id_category'] for ctg in game_ctgs]
-    return render_template('game/form_game.html', game=data, all_ctgs=ctgs, game_ctgs=game_ctgs)
+    return render_template('admin/games/form_game.html', game=data, all_ctgs=ctgs, game_ctgs=game_ctgs)
 
 @app.route("/games/delete/<id>", methods=['GET', 'POST'])
 def delete_game(id):
@@ -229,7 +233,7 @@ def add_category():
         # return redirect("/category", code=302)
     return render_template('category/form_category.html')
 
-@app.route("/category/edit/<id>", methods=['GET', 'POST'])
+@app.route("/categories/edit/<id>", methods=['GET', 'POST'])
 def edit_category(id):
     if request.method == 'POST':
         label = request.form.get('label').strip()
@@ -238,17 +242,17 @@ def edit_category(id):
     category = model.get_category_from_id(id)
     return render_template('category/form_category.html', ctg=category)
 
-@app.route("/category/delete/<id>")
+@app.route("/categories/delete/<id>")
 def delete_category(id):
     model.delete_category_from_id(id)
-    return redirect("/", code=302)
+    return redirect("/admin_categories", code=302)
 
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Session
 # ---------------------------------------------------------------------------
 
-@app.route("/session", methods=['GET', 'POST'])
+@app.route("/sessions", methods=['GET', 'POST'])
 def list_session():
     sessions = model.get_all_sessions()
     return render_template('session/session.html', sessions=sessions)
@@ -268,7 +272,7 @@ def add_session():
 @app.route("/session/delete/<id>")
 def delete_session(id):
     model.delete_session_from_id(id)
-    return redirect("/", code=302)
+    return redirect("/admin_sessions", code=302)
 
 
 

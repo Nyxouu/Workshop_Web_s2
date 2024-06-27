@@ -18,14 +18,15 @@
     
       <main>
         <section id="title">
-
+          <h1>{{user[0].username}}</h1>
         </section>
         <div class="separator"></div>
         <section id="content">
-          <h1>{{user[0].username}}</h1>
-      
           <p> {{user[0].email}} </p>
           <p> {{user[0].nationality}} </p>
+          <a href="/sessions">Voir les sessions</a>
+          <a href="/user/edit/{{user[0].id_user}}">Modifier son profil</a>
+          <a href="/logout">Deconnexion</a>
         </section>
       </main>
     </div>

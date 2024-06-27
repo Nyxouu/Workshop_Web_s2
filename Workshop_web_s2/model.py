@@ -352,6 +352,17 @@ def update_category(id,label,description):
 def delete_category_from_id(id):
     try:
         connection = connect()
+        # suppression des sessions utilisant la catégorie à supprimer
+        SQL = "delete from session where _id_category = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
+
+        # suppression des game_category utilisant la catégorie à supprimer
+        SQL = "delete from game_category where _id_category = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
+
+        # suppression de la catégorie
         SQL = "delete from category where id_category = %s"
         bd_cursor = connection.cursor()
         bd_cursor.execute(SQL, (id,))
