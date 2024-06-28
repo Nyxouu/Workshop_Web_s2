@@ -25,11 +25,11 @@
           <section id="content">
               <form action="" method="POST">
                   <div>
-                      <label for="label">Nom de la catégorie :</label>
+                      <label for="label">Nom de la catégorie </label>
                       <input id="label-input" type="text" name="label" minlength="1" maxlength="20" required="required" {% if ctg and ctg[0] %} value="{{ctg[0].label}}" {% endif %}>
                   </div>
                   <div>
-                      <label for="description">Description :</label>
+                      <label for="description">Description </label>
                       <textarea id="description-input" name="description" rows="5" cols="33" maxlength="500">{% if ctg and ctg[0] %}{{ ctg[0].description if ctg[0].description else '' }}{% endif %}</textarea>
                   </div>
                   <input type="submit" value="Ajouter" class="button">

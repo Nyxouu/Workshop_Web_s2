@@ -33,6 +33,10 @@ main form > div input {
 textarea, select, option {
     background: transparent;
 }
-option {
+select option {
     color: var(--main-bg-color);
+}
+select option:checked, select:focus option:checked {
+    background: var(--main-second-color);
+    color: var(--white);
 }

@@ -258,6 +258,8 @@ def edit_game(id):
         data = model.get_game(int(id))
         ctgs = model.get_all_category()
         game_ctgs = model.get_categories_from_game_id(int(id))
+        print(ctgs)
+        print(game_ctgs)
         # game_ctgs = [ctg['id_category'] for ctg in game_ctgs]
         return render_template('admin/games/form_game.html', game=data, all_ctgs=ctgs, game_ctgs=game_ctgs)
     return redirect ("/", code=302)

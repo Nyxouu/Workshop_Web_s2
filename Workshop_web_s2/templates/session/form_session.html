@@ -64,7 +64,7 @@
               <section id="content">
                   <form action="" method="POST">
                       <div>
-                          <label for="game">Jeu :</label>
+                          <label for="game">Jeu </label>
                           <select name="game" id="game-select" required="required">
                               {% for game in games %}
                               <option value="{{game.id_game}}">{{game.name}}</option>
@@ -72,12 +72,12 @@
                           </select>
                       </div>
                       <div>
-                          <label for="category">Catégorie :</label>
+                          <label for="category">Catégorie </label>
                           <select name="category" id="category-select" required="required">
                           </select>
                       </div>
                       <div>
-                          <label for="time">Score:</label>
+                          <label for="time">Score</label>
                           <input id="score-input" type="time" name="time" step="0.001" required="required">
                       </div>
                       <input type="submit" value="Enregistrer" class="button">
