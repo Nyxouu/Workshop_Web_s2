@@ -94,3 +94,42 @@ section#title {
 .warning::first-letter {
     text-transform: capitalize;
 }
+
+
+
+/* -------------------------------Tableaux  */
+section.table {
+    padding: 0;
+    padding-bottom: 25px;
+}
+
+table {
+    width: calc(100%);
+    /* margin: 0 -50px; */
+    border-collapse: collapse;
+}
+.settings-row {
+    text-align: center;
+    width: 70px;
+}
+thead th, tbody th {
+    font-weight: 500;
+}
+thead th:first-of-type, tbody th {
+    padding-left: 50px;
+}
+thead th:last-of-type, tbody td:last-of-type {
+    padding-right: 50px;
+}
+th, td {
+    padding: 10px 0;
+}
+thead tr {
+    background-color: rgba(247, 247, 247, 0.15);
+}
+tbody tr:nth-child(2n) {
+    background-color: rgba(247, 247, 247, 0.05);
+}
+tbody tr:last-child {
+    border-radius: 0 0 15px 15px;
+}
