@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/menu.css">
     <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="/static/css/game.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="/static/img/logo.ico" type="image/x-icon">
 <title>Speed Score</title>
@@ -82,10 +83,20 @@
     
       <main>
         <section id="info">
-          <h1>{{game[0].name}}</h1>
-          <p> {{game[0].description}} </p>
-          <p> {{game[0].released_date}} </p>
-          <p> image vide {{game[0].image}} </p>
+          <div class="img">
+            <div class="img-container">
+              {% if game.image %}
+                <img src="/static/img/games/{{game.image}}" alt="image {{game.name}}">
+              {% else %}
+                <img src="/static/img/games/default-game.png" alt="no image">
+              {% endif %}
+            </div>
+          </div>
+          <div class="info-game">
+            <h1>{{game[0].name}}</h1>
+            <p> {{game[0].description}} </p>
+            <p class="date">Date de sortie : {{game[0].released_date}} </p>
+          </div>
         </section>
         <div class="separator"></div>
         <section id="submenu">

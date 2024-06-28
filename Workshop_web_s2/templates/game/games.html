@@ -30,14 +30,21 @@
               <a href="games/{{game.id_game}}">
                 <div class="img">
                   {% if game.image %}
-                    <img src="{{game.image}}" alt="image {{game.name}}">
+                    <img src="/static/img/games/{{game.image}}" alt="image {{game.name}}">
                   {% else %}
-                    <img src="/static/img/default-game.png" alt="no image">
+                    <img src="/static/img/games/default-game.png" alt="no image">
                   {% endif %}
                 </div>
-                <div class="info">
+                <div class="info-game">
                   <div class="name">{{game.name}}</div>
-                  <div class="descr">{{game.description}}</div>
+                  <div class="descr">
+                    {% if game.description | length <= 100 %}
+                        {{ game.description }}
+                    {% else %}
+
+                        {{ game.description[:100] }}[...]
+                    {% endif %}
+                  </div>
                 </div>
               </a>
               <div class="separator"></div>
