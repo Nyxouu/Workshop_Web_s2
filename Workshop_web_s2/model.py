@@ -511,7 +511,7 @@ def get_all_sessions():
 def get_sessions_from_user(id) :
     connection = connect()
 
-    SQL = "SELECT * FROM session where _id_user = %s"
+    SQL = "SELECT * FROM session JOIN game ON session._id_game=game.id_game JOIN category ON session._id_category=category.id_category where _id_user = %s"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL, (id,))
 
