@@ -75,7 +75,7 @@ section {
     color: rgba(247, 247, 247, 0.5);
 
 }
-    .button:hover {
+    .button:hover, .button.selected {
         background-color: var(--main-primary-color);
         color: var(--main-bg-color);
     }

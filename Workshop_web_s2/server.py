@@ -161,7 +161,8 @@ def games():
 @app.route("/games/<id>", methods=['GET']) 
 def game(id):
     data = model.get_game(int(id))
-    return render_template('game/game.html', game=data)
+    ctgs = model.get_categories_from_game_id(id)
+    return render_template('game/game.html', game=data, ctgs=ctgs)
 
 @app.route("/games/add", methods=['GET', 'POST'])
 def add_game():
@@ -213,6 +214,15 @@ def delete_game(id):
     model.delete_one_game(id)
     print (id)
     return redirect("/admin_games", code=302)
+
+@app.route("/get_session_from_game_category", methods=['GET'])
+def get_session_from_game_and_category():
+    if request.method == 'GET':
+        id_game = request.args.get('id_game')
+        id_ctg = request.args.get('id_ctg')
+        sessions = model.get_session_from_game_category(id_game, id_ctg)
+        return sessions
+    return
 
 # ---------------------------------------------------------------------------
 # ---------------------------- Category

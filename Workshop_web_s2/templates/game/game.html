@@ -8,6 +8,33 @@
     <link rel="stylesheet" href="/static/css/form.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
     <title>Speed Score</title>
+
+    <script>
+      function updateList(id_game, id_ctg) {
+        fetch('/get_session_from_game_category?id_game='+id_game+'&id_ctg='+id_ctg)
+                    .then(response => response.json())
+                    .then(sessions => {
+                        updateSessionList(sessions)
+                    })
+                    .catch(error => {
+                        console.error('Error fetching sessions:', error)
+                    });
+      }
+      function updateSessionList(sessions) {
+          let sessionsList = document.getElementById('content')
+          sessionsList.innerHTML = '';
+          
+          sessions.forEach(session => {
+              let newSession = document.createElement('div')
+              newSession.textContent = session.time
+              
+              sessionsList.appendChild(newSession)
+          });
+      }
+      
+      // updateList(id);
+    </script>
+
   </head>
   <body>
     <div id="wrapper">
@@ -17,14 +44,21 @@
       </header>
     
       <main>
-        <section id="title">
+        <section id="info">
           <h1>{{game[0].name}}</h1>
-        </section>
-        <div class="separator"></div>
-        <section id="content">
           <p> {{game[0].description}} </p>
           <p> {{game[0].released_date}} </p>
           <p> image vide {{game[0].image}} </p>
+        </section>
+        <div class="separator"></div>
+        <section id="submenu">
+          {% for ctg in ctgs %}
+          <button class="button" onclick="updateList({{game[0].id_game}}, {{ctg.id_category}})">{{ctg.label}}</button>
+          {% endfor %}
+        </section>
+        <div class="separator"></div>
+        <section id="content">
+          
         </section>
       </main>
     </div>
