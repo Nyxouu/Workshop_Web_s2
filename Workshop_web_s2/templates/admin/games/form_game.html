@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/static/css/form.css">
     <link rel="stylesheet" href="/static/css/admin.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
-    <title>Speed Score</title>
+    <link rel="shortcut icon" href="/static/img/logo.ico" type="image/x-icon">
+<title>Speed Score</title>
   </head>
   <body>
     <div id="wrapper" class="admin">
@@ -36,17 +37,21 @@
                   <label for="description">Description :</label>
                   <textarea id="description" type="text" name="description" maxlength="1000" required>{% if game and game[0] %}{{game[0].description}}{% endif %}</textarea>
               </div>
-              <div>
+              <!-- <div>
                   <label for="image">Image du jeu :</label>
                   <input id="image" type="text" name="image" {% if game and game[0] %} value="{{game[0].image}}" {% endif %}>
-              </div>
+              </div> -->
               <div>
-                <label for="image">Catégories de speedrun :</label>
+                <label for="category[]">Catégories de speedrun :</label>
                 <select name="category[]" multiple size="6">
                     {% for category in all_ctgs %}
                         <option value="{{ category.id_category }}"{% if category.id_category in game_ctgs %} selected {% endif %}>{{ category.label }}</option>
                     {% endfor %}
                 </select>
+              </div>
+              <div>
+                <label for="image">Photo du jeu :</label>
+                <input type="file" id="image" name="image" accept="image/*">
               </div>
               <input type="submit" value="Enregistrer" class="button">
           </form>

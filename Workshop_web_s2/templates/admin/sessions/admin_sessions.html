@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="/static/css/menu.css">
     <link rel="stylesheet" href="/static/css/admin.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
-    <title>Speed Score</title>
+    <link rel="shortcut icon" href="/static/img/logo.ico" type="image/x-icon">
+<title>Speed Score</title>
   </head>
   <body>
     <div id="wrapper" class="admin">
@@ -18,20 +19,38 @@
     
       <main>
         <section id="title">
+
           <h1>Sessions de speedrun</h1>
+          <div class="settings">
+            <a href="/session/add"><i class="fa-solid fa-plus"> </i> Ajouter une session</a>
+          </div>
         </section>
         <div class="separator"></div>
-        <section id="content">
-          <a href="/session/add">Ajouter une session</a>
-      
-          {% for session in sessions %}
-      
-              <p>{{session._id_user}} {{session._id_game}} {{session._id_category}} {{session.date}} {{session.time}}</p>
-              <a href="/session/delete/{{session.id_session}}">Supprimer</a>
-              </br> 
-      
-          {% endfor %}
-        </section>
+        <section id="content" class="table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Score</th>
+                <th scope="col">Date</th>
+                <th scope="col" class="settings-row">Jeu</th>
+                <th scope="col" class="settings-row">Category</th>
+                <th scope="col" class="settings-row">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for session in sessions %}
+              
+                  <tr>
+                    <th scope="row" >{{session.time}}</th>
+                    <td>{{session.date}}</td>
+                    <td class="settings-row">{{session._id_game}}</td>
+                    <td class="settings-row">{{session._id_category}}</td>
+                    <td class="settings-row"><a href="/session/delete/{{session.id_session}}"><i class="fa-solid fa-trash" style="color: red;"></i></a></td>
+                  </tr>
+                    
+              {% endfor %}
+            </tbody>
+          </table>
       </main>
     </div>
 

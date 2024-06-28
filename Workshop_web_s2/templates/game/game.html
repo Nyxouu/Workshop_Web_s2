@@ -7,47 +7,69 @@
     <link rel="stylesheet" href="/static/css/menu.css">
     <link rel="stylesheet" href="/static/css/form.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
-    <title>Speed Score</title>
+    <link rel="shortcut icon" href="/static/img/logo.ico" type="image/x-icon">
+<title>Speed Score</title>
 
     <script>
       function updateList(id_game, id_ctg) {
-        fetch('/get_session_from_game_category?id_game='+id_game+'&id_ctg='+id_ctg)
-                    .then(response => response.json())
-                    .then(sessions => {
-                      console.log(sessions)
-                        updateSessionList(sessions)
-                    })
-                    .catch(error => {
-                        console.error('Error fetching sessions:', error)
-                    });
-      }
-      function updateSessionList(sessions) {
-          let sessionsList = document.getElementById('listOfSessions')
-          sessionsList.innerHTML = '';
-          
-          for (let i = 1; i <= sessions.length; i++) {
-            let index  = i
-            if(index == 1) index = `<i class="fa-solid fa-trophy" color="gold"></i>`
-            if(index == 2) index = `<i class="fa-medal fa-trophy" color="silver"></i>`
-            if(index == 3) index = `<i class="fa-solid fa-award" color="sienna"></i>`
-            let newSession = 
-              `<tr>
-                <th scope="row" class="settings-row">`+i+`</th>
-                <td>`+session.username+`</td>
-                <td>`+session.nationality+`</td>
-                <td>`+session.time+`</td>
-                <td>`+session.date+`</td>
-              </tr>`
-          }
-          sessions.forEach(session => {
-              
-              newSession.textContent = session.time
-              
-              sessionsList.appendChild(newSession)
+        fetch('/get_session_from_game_category?id_game=' + id_game + '&id_ctg=' + id_ctg)
+          .then(response => response.json())
+          .then(sessions => {
+            console.log(sessions);
+            updateSessionList(sessions);
+          })
+          .catch(error => {
+            console.error('Error fetching sessions:', error);
           });
       }
-      
-      // updateList(id);
+
+      function updateSessionList(sessions) {
+        let sessionsList = document.getElementById('listOfSessions');
+        if (sessionsList) {
+          sessionsList.innerHTML = '';
+          
+          for (let i = 0; i < sessions.length; i++) {
+            let session = sessions[i];
+            let index = i + 1;
+            let indexHTML = index;
+
+            if (index === 1) indexHTML = `<i class="fa-solid fa-trophy" style="color: gold;"></i>`;
+            if (index === 2) indexHTML = `<i class="fa-solid fa-medal" style="color: silver;"></i>`;
+            if (index === 3) indexHTML = `<i class="fa-solid fa-award" style="color: sienna;"></i>`;
+
+            let newSession = 
+              `<tr>
+                <th scope="row" class="settings-row">${indexHTML}</th>
+                <td class="bold">${session.username}</td>
+                <td>${session.nationality}</td>
+                <td>${session.time}</td>
+                <td>${session.date}</td>
+              </tr>`;
+            
+            sessionsList.innerHTML += newSession;
+          }
+        } else {
+          console.error('Element with id "listOfSessions" not found.');
+        }
+      }
+
+      function updateState(clickedButton) {
+        let buttons = document.querySelectorAll('#submenu .button');
+        buttons.forEach(button => {
+          button.classList.remove('selected');
+        });
+        clickedButton.classList.add('selected');
+      }
+
+      document.addEventListener('DOMContentLoaded', (event) => {
+        // Initialize the list with default game and category
+        let firstCategory = {{ ctgs[0]|tojson }};
+        let game_id = {{ game[0].id_game }};
+
+        updateList(game_id, firstCategory.id_category);
+        let firstButton = document.querySelector('#submenu .button:first-of-type');
+        firstButton.classList.add('selected');
+      });
     </script>
 
   </head>
@@ -68,7 +90,7 @@
         <div class="separator"></div>
         <section id="submenu">
           {% for ctg in ctgs %}
-          <button class="button" onclick="updateList({{game[0].id_game}}, {{ctg.id_category}})">{{ctg.label}}</button>
+          <button class="button" onclick="updateList({{game[0].id_game}}, {{ctg.id_category}}); updateState(this)">{{ctg.label}}</button>
           {% endfor %}
         </section>
         <div class="separator"></div>
@@ -76,14 +98,16 @@
           <table>
             <thead>
               <tr>
-                <th scope="col" class="settings">#</th>
+
+                <th scope="col" class="settings-row">#</th>
                 <th scope="col">Joueurs</th>
                 <th scope="col">Nationalités</th>
                 <th scope="col">Scores</th>
                 <th scope="col">Dates</th>
+
               </tr>
             </thead>
-            <tbody id="litOfSessions">
+            <tbody id="listOfSessions">
             </tbody>
           </table>
 

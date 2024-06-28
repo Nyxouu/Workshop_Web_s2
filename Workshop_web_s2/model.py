@@ -2,6 +2,14 @@ import mysql.connector
 from datetime import datetime
 import hashlib
 
+import io
+from flask import send_file
+
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 def timedelta_to_str(td):
     total_seconds = int(td.total_seconds())
     hours, remainder = divmod(total_seconds, 3600)
@@ -39,6 +47,14 @@ def hash_psw(psw):
 # ---------------------------------------------------------------------------
 # ---------------------------- Users
 # ---------------------------------------------------------------------------
+
+def save_user_image_to_db(filename, id_user):
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("UPDATE user SET profile_picture_name = %s where id_user = %s", (filename, id_user))
+    connection.commit()
+    cursor.close()
+    connection.close()
 
 def get_user_from_email(email) :
     connection = connect()
@@ -194,6 +210,15 @@ def get_categories_from_game_id(id_game) :
 # ---------------------------------------------------------------------------
 # ---------------------------- Games 
 # ---------------------------------------------------------------------------
+
+def save_game_image_to_db(filename, id_game):
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("UPDATE game SET image = %s where id_game = %s", (filename, id_game))
+    connection.commit()
+    cursor.close()
+    connection.close()
+    
 def get_all_games() :
     connection = connect()
 

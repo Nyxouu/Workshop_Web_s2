@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="/static/css/menu.css">
     <link rel="stylesheet" href="/static/css/form.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
-    <title>Speed Score</title>
+    <link rel="shortcut icon" href="/static/img/logo.ico" type="image/x-icon">
+<title>Speed Score</title>
   </head>
   <body>
     <div id="wrapper">
@@ -18,12 +19,16 @@
 
       <main>
         <section id="title">
-          <h1>Bienvenue sur SpeedScore{% if 'username' in session %} {{ session['username'] }}{% endif %}</h1>
+          <h1>Bienvenue sur SpeedScore,{% if 'username' in session %} {{ session['username'] }}{% endif %}</h1>
         </section>
         <div class="separator"></div>
-        <section id="content">
+        <section id="content" class="ctg-list-home">
           {% for ctg in infos_categories %}
-            <p>{{ctg.label}} : {{ctg.nb_of_games}} {% if ctg.nb_of_games <= 1 %} jeu {% else %} jeux {% endif %} - {{ctg.nb_of_sessions}} {% if ctg.nb_of_sessions <= 1 %} session {% else %} sessions {% endif %} </p>
+          <div class="ctg">
+            <h2>{{ctg.label}}</h2>
+            <p>{{ctg.nb_of_games}} {% if ctg.nb_of_games <= 1 %} jeu {% else %} jeux {% endif %}</p>
+            <p>{{ctg.nb_of_sessions}} {% if ctg.nb_of_sessions <= 1 %} session {% else %} sessions {% endif %}</p>
+          </div>
           {% endfor %}
           <p>{{log_user}}</p>
         </section>

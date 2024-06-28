@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/static/css/form.css">
     <link rel="stylesheet" href="/static/css/admin.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
-    <title>Speed Score</title>
+    <link rel="shortcut icon" href="/static/img/logo.ico" type="image/x-icon">
+<title>Speed Score</title>
   </head>
   <body>
      <div id="wrapper" {% if  session['admin']==1 %}class="admin"{% endif %}>
@@ -19,27 +20,27 @@
     
       <main>
         <section id="title">
-          <h1>{{user[0].username}}</h1>
+          <h1>Mon profil</h1>
         </section>
         <div class="separator"></div>
+        {% if  session['admin']==1 %}
+        <section id="submenu">
+          <a class="button" href="/admin_games">Administrer les jeux</a>
+          <a class="button" href="/admin_categories">Administrer les catégories</a>
+          <a class="button" href="/admin_sessions">Administrer les sessions</a>
+          <a class="button" href="/admin_users">Administrer les utilisateurs</a>
+        </section>
+        <div class="separator"></div>
+        {% endif %}
         <section id="content">
-          <h2>Mon profil</h2>
-          <p> {{user[0].username}} </p>
-          <p> {{user[0].email}} </p>
-          <p> {{user[0].nationality}} </p>
+          <img src="/static/img/users/{{ user[0].profile_picture_name }}" alt="Photo de profil">
+          <h2>{{user[0].username}}</h2>
+          <p>Email : {{user[0].email}} </p>
+          <p>Nationalité : {{user[0].nationality}} </p>
 
-          <a href="/sessions">Voir mes sessions</a>
-          <a href="/user/edit/{{user[0].id_user}}">Modifier son profil</a>
-          <a href="/logout">Déconnexion</a>
-
-          <br>
-          
-          {% if  session['admin']==1 %}
-            <a href="/admin_games">Administrer les jeux</a>
-            <a href="/admin_categories">Administrer les catégories</a>
-            <a href="/admin_sessions">Administrer les sessions</a>
-            <a href="/admin_users">Administrer les utilisateurs</a>
-          {% endif %}
+          <a class="button" href="/sessions">Voir mes sessions</a>
+          <a class="button" href="/user/edit/{{user[0].id_user}}">Modifier son profil</a>
+          <a class="button" href="/logout">Déconnexion</a>
         </section>
       </main>
     </div>

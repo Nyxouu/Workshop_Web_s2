@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/static/css/form.css">
     <link rel="stylesheet" href="/static/css/admin.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
-    <title>Speed Score</title>
+    <link rel="shortcut icon" href="/static/img/logo.ico" type="image/x-icon">
+<title>Speed Score</title>
   </head>
   <body>
     <div id="wrapper" class="admin">
@@ -19,20 +20,33 @@
     
       <main>
         <section id="title">
-          <h1></h1>
+
+          <h1>Administrer les catégories</h1>
+          <div class="settings">
+            <a href="/category/add"><i class="fa-solid fa-plus"> </i> Ajouter une catégorie</a>
+          </div>
         </section>
         <div class="separator"></div>
-        <section id="content">
-          <a href="/category/add">Ajouter une catégorie</a>
-      
-          {% for category in categories %}
-      
-              <p>{{category.label}}</p>
-              <a href="/categories/delete/{{category.id_category}}">Supprimer</a>
-              <a href="/categories/edit/{{category.id_category}}">Modifier</a>
-              </br> 
-      
-          {% endfor %}
+        <section id="content" class="table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Nom</th>
+                <th scope="col" class="settings-row">Modifier</th>
+                <th scope="col" class="settings-row">Supprimer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for category in categories %}
+                  <tr>
+                    <th scope="row" >{{category.label}}</th>
+                    <td class="settings-row"><a href="/categories/edit/{{category.id_category}}"><i class="fa-solid fa-pen" style="color: lightskyblue;"></i></a></td>
+                    <td class="settings-row"><a href="/categories/delete/{{category.id_category}}"><i class="fa-solid fa-trash" style="color: red;"></i></a></td>
+                  </tr>
+          
+              {% endfor %}
+            </tbody>
+          </table>
         </section>
       </main>
     </div>
