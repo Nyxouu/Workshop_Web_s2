@@ -24,7 +24,7 @@
         </section>
         <div class="separator"></div>
         <section id="content">
-          <form action="" method="POST">
+          <form action="" method="POST" enctype="multipart/form-data">
               <div>
                   <label for="name">Nom du jeu </label>
                   <input id="name" type="text" name="name" {% if game and game[0] %} value="{{game[0].name}}" {% endif %} required>
@@ -43,7 +43,7 @@
               </div> -->
               <div>
                 <label for="category[]">Catégories de speedrun </label>
-                <select name="category[]" multiple size="6">
+                <select name="category[]" multiple size="6" required="required">
                   {% for category in all_ctgs %}
                       <option value="{{ category.id_category }}"
                               {% if category.id_category in game_ctgs|map(attribute='id_category') %}

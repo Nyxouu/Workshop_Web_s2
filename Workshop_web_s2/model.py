@@ -268,12 +268,12 @@ def search_games_by_name(game_name):
     connection.close()
     return formated_games
 
-def add_new_game(name, description, released_date, image) :
+def add_new_game(name, description, released_date) :
     try:
         connection = connect()
-        SQL = "insert into game (name, description, released_date, image) values (%s, %s, %s, %s)"
+        SQL = "insert into game (name, description, released_date) values (%s, %s, %s)"
         bd_cursor = connection.cursor()
-        bd_cursor.execute(SQL, (name, description, released_date, image))
+        bd_cursor.execute(SQL, (name, description, released_date))
         connection.commit()
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -283,12 +283,12 @@ def add_new_game(name, description, released_date, image) :
         if connection:
             connection.close()
 
-def update_game(id, name, description, released_date, image) :
+def update_game(id, name, description, released_date) :
     try:
         connection = connect()
-        SQL = "update game set name = %s, description = %s, released_date = %s, image = %s where id_game = %s"
+        SQL = "update game set name = %s, description = %s, released_date = %s where id_game = %s"
         bd_cursor = connection.cursor()
-        bd_cursor.execute(SQL, (name, description, released_date, image, id))
+        bd_cursor.execute(SQL, (name, description, released_date, id))
         connection.commit()
     except Exception as e:
         print(f"An error occurred: {e}")

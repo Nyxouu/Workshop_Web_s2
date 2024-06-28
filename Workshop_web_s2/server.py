@@ -84,7 +84,7 @@ def user(id):
 
 @app.route("/user/edit/<id>", methods=['GET', 'POST'])
 def edit_user(id):
-    if 'admin' in session and session['admin']==1 :  
+    if ('admin' in session and (session['admin']==1 or session['id_user']==int(id))) :  
         if request.method == 'POST' :
             username = request.form['username'].strip()
             email = request.form['email'].strip()
@@ -112,7 +112,7 @@ def edit_user(id):
 
             return redirect("/users/" + str(session['id_user']), code=302)
         data = model.get_user(int(id))
-        return render_template('user/edit_user.html', user=data)
+        return render_template('user/edit_user.html', user=data)            
     return redirect ("/", code=302)
 
 
@@ -195,10 +195,9 @@ def add_game():
             name = request.form['name'].strip()
             description = request.form['description'].strip()
             released_date = request.form['released_date']
-            image = request.form['image'].strip()
             ctgs = request.form.getlist('category[]')
             ctgs = [int(c) for c in ctgs]
-            model.add_new_game(name, description, released_date, image)
+            model.add_new_game(name, description, released_date)
             id_new_game = model.get_latest_game_id()[0]
             for ctg in ctgs:
                 model.add_liaison_gc(id_new_game,ctg)
@@ -226,8 +225,7 @@ def edit_game(id):
             name = request.form['name'].strip()
             description = request.form['description'].strip()
             released_date = request.form['released_date']
-            image = request.form['image'].strip()
-            model.update_game(int(id), name, description, released_date, image)
+            model.update_game(int(id), name, description, released_date)
 
             #gestion category
             previous_ctgs = model.get_categories_from_game_id(int(id))
@@ -245,21 +243,24 @@ def edit_game(id):
 
 
             # Enregistrement de l'image
+            # print(request.files)
             if 'image' not in request.files:
                 return 'No file part'
             file = request.files['image']
+            # print(file)
             if file and model.allowed_file(file.filename):
                 filename = secure_filename(file.filename)
+                # print(filename)
                 file_path = os.path.join(app.config['UPLOAD_FOLDER_GAMES'], filename)
                 file.save(file_path)
-                model.save_game_image_to_db(filename, id_new_game)
+                model.save_game_image_to_db(filename, id)
 
 
         data = model.get_game(int(id))
         ctgs = model.get_all_category()
         game_ctgs = model.get_categories_from_game_id(int(id))
-        print(ctgs)
-        print(game_ctgs)
+        # print(ctgs)
+        # print(game_ctgs)
         # game_ctgs = [ctg['id_category'] for ctg in game_ctgs]
         return render_template('admin/games/form_game.html', game=data, all_ctgs=ctgs, game_ctgs=game_ctgs)
     return redirect ("/", code=302)
@@ -339,15 +340,17 @@ def add_session():
         today = dt.today()
         user = session['id_user']
         model.add_new_session(time, today, game, user, ctg)
-        sessions = model.get_all_sessions()
-        return render_template('session/session.html', sessions=sessions)
+        return redirect('/sessions', code=302)
     games = model.get_all_games()
     return render_template('session/form_session.html', games=games)
 
 @app.route("/session/delete/<id>")
 def delete_session(id):
     model.delete_session_from_id(id)
-    return redirect("/admin_sessions", code=302)
+    if 'admin' in session and session['admin']==1 :
+        return redirect("/admin_sessions", code=302)
+    else:
+        return redirect("/sessions", code=302)
 
 
 
