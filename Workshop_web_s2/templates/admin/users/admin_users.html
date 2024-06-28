@@ -7,6 +7,7 @@
       <link rel="stylesheet" href="/static/css/menu.css">
     <link rel="stylesheet" href="/static/css/form.css">
     <link rel="stylesheet" href="/static/css/admin.css">
+    <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
       <title>Speed Score</title>
   </head>
   <body>
@@ -18,21 +19,45 @@
     
       <main>
         <section id="title">
-          <h1>utilisateurs</h1>
+
+          <h1>Users</h1>
+          <div class="settings">
+            <a href="/signup"><i class="fa-solid fa-plus"></i> Add user</a>
+          </div>
         </section>
         <div class="separator"></div>
-        <section id="content">
-          <a href="/signup">Ajouter un utilisateur</a>
+        <section id="content" class="table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col" class="settings-row">Id</th>
+                <th scope="col" class="settings-row">Image</th>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Email</th>
+                <th scope="col">Nationalité</th>
+                <th scope="col" class="settings-row">Admin</th>
+                <th scope="col" class="settings-row">Edit</th>
+                <th scope="col" class="settings-row">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+              <tr>
+                  <th scope="row" class="settings-row">{{user.id_user}}</th>
+                  <td class="settings-row">{{user.profile_picture}}</td>
+                  <td>{{user.username}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.nationality}}</td>
+                  <td class="settings-row">{{user.admin}}</td>
+                  <td class="settings-row"><a href="/user/edit/{{user.id_user}}"><i class="fa-solid fa-pen" style="color: lightskyblue;"></i></a></td>
+                  <td class="settings-row"><a href="/user/delete/{{user.id_user}}"><i class="fa-solid fa-trash" style="color: red;"></i></a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
 
-          {% for user in users %}
-
-              <p>{{user.profile_picture}} {{user.id_user}} {{user.username}} {{user.email}} {{user.nationality}} {{user.admin}}</p>
-              <a href="/user/delete/{{user.id_user}}">Supprimer</a>
-              <a href="/user/edit/{{user.id_user}}">Éditer</a>
-              </br> 
-
-          {% endfor %}
         </section>
+
       </main>
     </div>
 
