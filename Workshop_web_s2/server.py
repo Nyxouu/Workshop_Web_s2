@@ -221,6 +221,7 @@ def get_session_from_game_and_category():
         id_game = request.args.get('id_game')
         id_ctg = request.args.get('id_ctg')
         sessions = model.get_session_from_game_category(id_game, id_ctg)
+        print(sessions)
         return sessions
     return
 
