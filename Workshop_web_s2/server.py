@@ -24,11 +24,6 @@ def admin_games():
     data = model.get_all_games()
     return render_template('admin/games/admin_games.html', games=data)
 
-@app.route("/games/admin/<id>", methods=['GET']) 
-def admin_game(id):
-    data = model.get_game(int(id))
-    return render_template('admin/games/admin_game.html', game=data)
-
 @app.route("/admin_categories")
 def admin_categories():
     data = model.get_all_category()
@@ -221,7 +216,6 @@ def get_session_from_game_and_category():
         id_game = request.args.get('id_game')
         id_ctg = request.args.get('id_ctg')
         sessions = model.get_session_from_game_category(id_game, id_ctg)
-        print(sessions)
         return sessions
     return
 

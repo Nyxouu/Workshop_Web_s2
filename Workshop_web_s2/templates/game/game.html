@@ -22,11 +22,25 @@
                     });
       }
       function updateSessionList(sessions) {
-          let sessionsList = document.getElementById('content')
+          let sessionsList = document.getElementById('listOfSessions')
           sessionsList.innerHTML = '';
           
+          for (let i = 1; i <= sessions.length; i++) {
+            let index  = i
+            if(index == 1) index = `<i class="fa-solid fa-trophy" color="gold"></i>`
+            if(index == 2) index = `<i class="fa-medal fa-trophy" color="silver"></i>`
+            if(index == 3) index = `<i class="fa-solid fa-award" color="sienna"></i>`
+            let newSession = 
+              `<tr>
+                <th scope="row" class="settings-row">`+i+`</th>
+                <td>`+session.username+`</td>
+                <td>`+session.nationality+`</td>
+                <td>`+session.time+`</td>
+                <td>`+session.date+`</td>
+              </tr>`
+          }
           sessions.forEach(session => {
-              let newSession = document.createElement('div')
+              
               newSession.textContent = session.time
               
               sessionsList.appendChild(newSession)
@@ -58,8 +72,21 @@
           {% endfor %}
         </section>
         <div class="separator"></div>
-        <section id="content">
-          
+        <section id="content" class="table">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col" class="settings">#</th>
+                <th scope="col">Joueur</th>
+                <th scope="col">Nationality</th>
+                <th scope="col">Score</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody id="litOfSessions">
+            </tbody>
+          </table>
+
         </section>
       </main>
     </div>

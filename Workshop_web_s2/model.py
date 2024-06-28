@@ -1,5 +1,20 @@
 import mysql.connector
+from datetime import datetime
 import hashlib
+
+def timedelta_to_str(td):
+    total_seconds = int(td.total_seconds())
+    hours, remainder = divmod(total_seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    milliseconds = td.microseconds // 1000
+    return f"{hours:02}:{minutes:02}:{seconds:02}:{milliseconds:03}"
+
+
+
+
+
+
+
 
 def format_query(keys, values):
     column_names = [field[0] for field in keys]
@@ -290,8 +305,19 @@ def get_session_from_game_category(id_game, id_category) :
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL, (id_game, id_category)) 
     data = bd_cursor.fetchall()
+    data2 = []
+    for value in data:
+        temp = (
+            value[0],
+            value[1],
+            timedelta_to_str(value[2]),
+            value[3].strftime("%m/%d/%Y"),
+            value[4],
+            value[5]
+        )
+        data2.append(temp)
     fields_list = bd_cursor.description
-    formated_sessions = format_query(fields_list, data)
+    formated_sessions = format_query(fields_list, data2)
     bd_cursor.close()
     connection.close()
     return formated_sessions
