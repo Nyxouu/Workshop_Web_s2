@@ -94,6 +94,9 @@ section#title {
 .warning::first-letter {
     text-transform: capitalize;
 }
+.bold {
+    font-weight: 600;
+}
 
 
 
@@ -109,6 +112,7 @@ table {
     border-collapse: collapse;
 }
 .settings-row {
+    box-sizing: content-box;
     text-align: center;
     width: 70px;
 }
