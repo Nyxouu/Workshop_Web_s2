@@ -32,6 +32,7 @@
         <div class="separator"></div>
         {% endif %}
         <section id="content">
+          <img src="/static/img/users/{{ user[0].profile_picture_name }}" alt="Photo de profil">
           <h2>{{user[0].username}}</h2>
           <p>Email : {{user[0].email}} </p>
           <p>Nationalité : {{user[0].nationality}} </p>

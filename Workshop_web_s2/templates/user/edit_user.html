@@ -22,7 +22,7 @@
           </section>
           <div class="separator"></div>
           <section id="content">
-              <form action="" method="POST">
+              <form action="" method="POST" enctype="multipart/form-data">
                   <div>
                       <label for="username">Nom d'utilisateur :</label>
                       <input id="username" type="text" name="username" value="{{user[0].username}}" required>
@@ -38,6 +38,10 @@
                   <div>
                       <label for="password">Changer le mot de passe :</label>
                       <input id="password" type="password" name="password" value="">
+                  </div>
+                  <div>
+                    <label for="image">Photo de profil :</label>
+                    <input type="file" id="image" name="image" accept="image/*">
                   </div>
                   <input type="submit" value="Modifier" class="button">
               </form>
