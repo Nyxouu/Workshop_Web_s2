@@ -30,6 +30,9 @@ main form > div input {
     font-size: 16px;
 }
 
-textarea, select {
+textarea, select, option {
     background: transparent;
+}
+option {
+    color: var(--main-bg-color);
 }
