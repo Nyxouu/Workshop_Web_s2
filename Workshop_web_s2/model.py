@@ -55,7 +55,7 @@ def check_user_existence(email, password) :
 def get_all_users() :
     connection = connect()
 
-    SQL = "SELECT * FROM user"
+    SQL = "SELECT * FROM user ORDER BY username ASC"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL)
 
@@ -109,15 +109,21 @@ def update_user(id, email, username, password, nationality) :
         if connection:
             connection.close()
 
-def delete_one_user(id) :
+def delete_one_user(id):
     try:
         connection = connect()
+        # suppression des sessions utilisant l'utilisateur à supprimer
+        SQL = "delete from session where _id_user = %s"
+        bd_cursor = connection.cursor()
+        bd_cursor.execute(SQL, (id,))
+
+        # suppression de l'utilisateur
         SQL = "delete from user where id_user = %s"
         bd_cursor = connection.cursor()
         bd_cursor.execute(SQL, (id,))
         connection.commit()
     except Exception as e:
-        print("An error occurred: {e}")
+        print(f"An error occurred: {e}")
     finally:
         if bd_cursor:
             bd_cursor.close()
@@ -176,7 +182,7 @@ def get_categories_from_game_id(id_game) :
 def get_all_games() :
     connection = connect()
 
-    SQL = "SELECT * FROM game"
+    SQL = "SELECT * FROM game ORDER BY name ASC"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL)
 
@@ -212,7 +218,7 @@ def get_game(id) :
 
 def search_games_by_name(game_name):
     connection = connect()
-    SQL = "SELECT * FROM game WHERE LOWER(name) LIKE %s"
+    SQL = "SELECT * FROM game WHERE LOWER(name) LIKE %s ORDER BY name ASC"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL, ('%' + game_name.lower() + '%',)) 
     data = bd_cursor.fetchall()
@@ -278,12 +284,24 @@ def delete_one_game(id) :
         if connection:
             connection.close()
 
+def get_session_from_game_category(id_game, id_category) :
+    connection = connect()
+    SQL = "SELECT user.username, user.nationality, session.time, session.date, game.name, category.label from user join session on user.id_user = session._id_user join category on session._id_category = category.id_category join game on session._id_game = game.id_game where session._id_game = %s and session._id_category = %s order by session.time asc"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (id_game, id_category)) 
+    data = bd_cursor.fetchall()
+    fields_list = bd_cursor.description
+    formated_sessions = format_query(fields_list, data)
+    bd_cursor.close()
+    connection.close()
+    return formated_sessions
+
 # ---------------------------------------------------------------------------
 # ---------------------------- Category
 # ---------------------------------------------------------------------------
 def get_all_category():
     connection = connect()
-    SQL = "SELECT id_category,label FROM category"
+    SQL = "SELECT id_category,label FROM category ORDER BY label ASC"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL)
     data = bd_cursor.fetchall() #values
@@ -430,6 +448,21 @@ def get_all_sessions():
     SQL = "SELECT * FROM session"
     bd_cursor = connection.cursor()
     bd_cursor.execute(SQL)
+
+    data = bd_cursor.fetchall() #values
+    fields_list = bd_cursor.description  #keys
+    formated_sessions = format_query(fields_list, data)
+
+    bd_cursor.close()
+    connection.close()
+    return formated_sessions
+
+def get_sessions_from_user(id) :
+    connection = connect()
+
+    SQL = "SELECT * FROM session where _id_user = %s"
+    bd_cursor = connection.cursor()
+    bd_cursor.execute(SQL, (id,))
 
     data = bd_cursor.fetchall() #values
     fields_list = bd_cursor.description  #keys

@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/menu.css">
+    <link rel="stylesheet" href="/static/css/form.css">
     <link rel="stylesheet" href="/static/css/admin.css">
     <script src="https://kit.fontawesome.com/fbc8a75355.js" crossorigin="anonymous"></script>
     <title>Speed Score</title>
   </head>
   <body>
-    <div id="wrapper" class="admin">
+     <div id="wrapper" {% if  session['admin']==1 %}class="admin"{% endif %}>
 
       <header>
         {% include "menu.html" %}
@@ -18,27 +19,29 @@
     
       <main>
         <section id="title">
-          <h1>Admin Back Office</h1>
+          <h1>{{user[0].username}}</h1>
         </section>
         <div class="separator"></div>
         <section id="content">
-          <h2>{{user[0].username}}</h2>
+          <h2>Mon profil</h2>
+          <p> {{user[0].username}} </p>
           <p> {{user[0].email}} </p>
           <p> {{user[0].nationality}} </p>
-      
-          <a href="/admin_games">Admin games</a>
-          <a href="/admin_categories">Admin categoies</a>
-          <a href="/admin_sessions">Admin sessions</a>
-          <a href="/admin_users">Admin users</a>
+
+          <a href="/sessions">Voir mes sessions</a>
+          <a href="/user/edit/{{user[0].id_user}}">Modifier son profil</a>
+          <a href="/logout">Déconnexion</a>
+
+          <br>
+          
+          {% if  session['admin']==1 %}
+            <a href="/admin_games">Administrer les jeux</a>
+            <a href="/admin_categories">Administrer les catégories</a>
+            <a href="/admin_sessions">Administrer les sessions</a>
+            <a href="/admin_users">Administrer les utilisateurs</a>
+          {% endif %}
         </section>
       </main>
     </div>
-
-
-    <a href="/sessions">Voir les sessions</a>
-    <a href="/user/edit/{{user[0].id_user}}">Modifier son profil</a>
-    <a href="/logout">Deconnexion</a>
-    
-
   </body>
 </html>

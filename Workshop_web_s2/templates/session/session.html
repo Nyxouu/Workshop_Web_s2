@@ -18,7 +18,7 @@
     
       <main>
         <section id="title">
-          <h1>Sessions</h1>
+          <h1>Mes sessions de speedrun</h1>
         </section>
         <div class="separator"></div>
         <section id="content">
@@ -26,7 +26,7 @@
           {% for session in sessions %}
       
               <p>{{session._id_game}} {{session._id_category}} {{session.date}} {{session.time}}<p>
-              <a href="/session/delete/{{session.id_session}}">delete</a>
+              <a href="/session/delete/{{session.id_session}}">Supprimer</a>
       
           {% endfor %}
 
