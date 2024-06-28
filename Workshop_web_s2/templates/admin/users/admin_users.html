@@ -23,7 +23,7 @@
 
           <h1>Users</h1>
           <div class="settings">
-            <a href="/signup"><i class="fa-solid fa-plus"></i> Add user</a>
+            <a href="/signup"><i class="fa-solid fa-plus"></i> Ajouter un utilisateur</a>
           </div>
         </section>
         <div class="separator"></div>
@@ -45,7 +45,7 @@
               {% for user in users %}
               <tr>
                   <th scope="row" class="settings-row">{{user.id_user}}</th>
-                  <td class="settings-row">{{user.profile_picture}}</td>
+                  <td class="settings-row" id="profile-image-users"><img src="/static/img/users/{{user.profile_picture_name}}" alt="Photo de profil"></td>
                   <td>{{user.username}}</td>
                   <td>{{user.email}}</td>
                   <td>{{user.nationality}}</td>

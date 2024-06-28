@@ -164,3 +164,29 @@ tbody tr:last-child {
     color: var(--main-primary-color);
     margin-bottom: 10px;
 }
+
+
+/* -------------------------------Images  */
+main #profil-picture-account {
+    width: 15rem;
+    height: 15rem;
+    display: block; 
+}
+
+main #profil-picture-account img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+main #profile-image-users {
+    width: 40px;height: 40px;
+    display: block; 
+}
+
+main #profile-image-users img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100px;
+}

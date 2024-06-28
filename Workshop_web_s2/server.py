@@ -110,7 +110,7 @@ def edit_user(id):
                 session['profile_picture_name'] = filename
                 
 
-            return redirect("/users/" + str(session['admin']), code=302)
+            return redirect("/users/" + str(session['id_user']), code=302)
         data = model.get_user(int(id))
         return render_template('user/edit_user.html', user=data)
     return redirect ("/", code=302)
